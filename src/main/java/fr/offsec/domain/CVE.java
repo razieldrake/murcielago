@@ -82,8 +82,8 @@ public class CVE {
 	
 	
 	@ManyToOne(fetch = FetchType.LAZY, optional = true)
-    @JoinColumn(name = "service_id", nullable=false)
-	@JsonIgnore
+    //@JoinColumn(name = "service_id", nullable=false)
+	//@JsonIgnore
 	private Service service;
 	
 	
