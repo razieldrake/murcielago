@@ -12,6 +12,7 @@ import fr.offsec.domain.Service;
 public interface ServiceRepository extends CrudRepository<Service, UUID> {
 	
 	//Iterable<Service> findAllByID(UUID idService);
+	
 	Iterable<Service> findAllServiceByNameService(String name);
 	
 	

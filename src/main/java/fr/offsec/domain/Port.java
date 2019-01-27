@@ -37,9 +37,13 @@ public class Port {
 	private Collection<Service> services = new ArrayList<Service>();
 	
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "host_id", nullable = false)
-	@JsonIgnore
+   // @JoinColumn(name = "host_id", nullable = false)
+	//@JsonIgnore
 	private Host host;
+	
+	protected Port() {
+		
+	}
 	
 	@JsonCreator
 	public Port(@JsonProperty("id_port") int idport,
@@ -58,10 +62,7 @@ public class Port {
 		return this.services;
 	}
 	
-	public void setPortForService(Collection<Service> services) {
-		
-		this.services = services;
-	}
+	
 	public void setPortForService(fr.offsec.domain.Service service) {
 		this.services.add(service);
 	}

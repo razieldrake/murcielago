@@ -1,3 +1,4 @@
+
 package fr.offsec.dto;
 
 import java.util.UUID;
@@ -32,12 +33,12 @@ public class CVEDTO {
 	private String idCVE;			private float baseScoreV3;		private float impactScoreV3;
 	private float baseScoreV2;		private float impactScoreV2;	private String VectorV3;
 	private String VectorV2;		private String description;
-	private String attackVectorV2;	private String attackVectorV3;	private Service serviceid;
-	public Service getServiceid() {
-		return serviceid;
+	private String attackVectorV2;	private String attackVectorV3;	private Service service;
+	public Service getService() {
+		return service;
 	}
 	public void setServiceid(Service serviceid) {
-		this.serviceid = serviceid;
+		this.service = serviceid;
 	}
 	/*
 	 * NEED to add the date of publishing and the date of the last modified with the correct JSON FORMAT

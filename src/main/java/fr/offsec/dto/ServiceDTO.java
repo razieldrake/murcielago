@@ -11,54 +11,64 @@ import fr.offsec.domain.Port;
 @JsonInclude(value=Include.NON_EMPTY)
 public class ServiceDTO {
 
-	private UUID idServiceDTO;
+	private UUID idService;
 	
-	private String nameServiceDTO;
+	private String nameService;
 	
-	private String versionServiceDTO;
+	private String versionService;
 	
-	private Port portServiceDTO;
+	private Port portService;
 	
-	private CVE[] cvesServiceDTO;
+	private String osService;
+	
+	private CVEDTO[] cvesService;
 
-	public UUID getIdServiceDTO() {
-		return idServiceDTO;
+	public UUID getIdService() {
+		return idService;
 	}
 
-	public String getNameServiceDTO() {
-		return nameServiceDTO;
+	public String getNameService() {
+		return nameService;
 	}
 
-	public String getVersionServiceDTO() {
-		return versionServiceDTO;
+	public String getVersionService() {
+		return versionService;
 	}
 
-	public Port getPortServiceDTO() {
-		return portServiceDTO;
+	public Port getPortService() {
+		return portService;
 	}
 
-	public CVE[] getCvesServiceDTO() {
-		return cvesServiceDTO;
+	public CVEDTO[] getCvesService() {
+		return cvesService;
 	}
 
-	public void setIdServiceDTO(UUID idServiceDTO) {
-		this.idServiceDTO = idServiceDTO;
+	public void setIdService(UUID idServiceDTO) {
+		this.idService = idServiceDTO;
 	}
 
-	public void setNameServiceDTO(String nameServiceDTO) {
-		this.nameServiceDTO = nameServiceDTO;
+	public void setNameService(String nameServiceDTO) {
+		this.nameService = nameServiceDTO;
 	}
 
-	public void setVersionServiceDTO(String versionServiceDTO) {
-		this.versionServiceDTO = versionServiceDTO;
+	public void setVersionService(String versionServiceDTO) {
+		this.versionService = versionServiceDTO;
 	}
 
-	public void setPortServiceDTO(Port portServiceDTO) {
-		this.portServiceDTO = portServiceDTO;
+	public void setPortService(Port portServiceDTO) {
+		this.portService= portServiceDTO;
 	}
 
-	public void setCvesServiceDTO(CVE[] cvesServiceDTO) {
-		this.cvesServiceDTO = cvesServiceDTO;
+	public void setCvesService(CVEDTO[] cvesServiceDTO) {
+		this.cvesService = cvesServiceDTO;
+	}
+
+	public String getOsService() {
+		return osService;
+	}
+
+	public void setOsService(String osServiceDTO) {
+		this.osService = osServiceDTO;
 	}
 	
 }

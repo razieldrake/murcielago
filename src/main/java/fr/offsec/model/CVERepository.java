@@ -11,5 +11,6 @@ public interface CVERepository extends CrudRepository<CVE, String> {
 	//CVE findAllByI(String idCVE);
 	
 	
+	
 
 }

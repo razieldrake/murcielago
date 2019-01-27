@@ -39,26 +39,34 @@ public class Service {
 	private String versionService;
 	
 	@JsonProperty
-	private String guessedOSService;
+	private String OsService;
 
 	
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "port_id", nullable = false)
-	@JsonIgnore
+	@ManyToOne(fetch = FetchType.LAZY, optional = true)
+  //  @JoinColumn(name = "port_id", nullable = false)
+	//@JsonIgnore
 	private Port port;
 	
 	@OneToMany(mappedBy= "service", cascade=CascadeType.ALL)
 	private Collection<CVE> cves = new ArrayList<CVE>();
 	
+	protected Service() {
+		
+	}
+	
 	@JsonCreator
 	public Service(@JsonProperty("id_service") UUID id,
 				   @JsonProperty("name_service")String name,
 				   @JsonProperty("version_service")String version,
-				   @JsonProperty("guessed_os_service")String os) {
+				   @JsonProperty("guessed_os_service")String os,
+				   @JsonProperty("id_port")Port port,
+				   @JsonProperty("cves")ArrayList<CVE> cves) {
 		this.idService = id;
 		this.nameService = name;
 		this.versionService = version;
-		this.guessedOSService = os;
+		this.OsService = os;
+		this.port = port;
+		this.cves = cves;
 	
 	}
 	
@@ -72,7 +80,7 @@ public class Service {
 		return this.versionService;
 	}
 	public String getGuessedOSService() {
-		return this.guessedOSService;
+		return this.OsService;
 	}
 	
 	public Port getPortForService() {
@@ -98,7 +106,7 @@ public class Service {
 		this.versionService = version;
 	}
 	public void setGuessedOSService(String os) {
-		this.guessedOSService = os;
+		this.OsService = os;
 	}
 	
 	
