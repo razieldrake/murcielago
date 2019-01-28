@@ -46,8 +46,18 @@ public class ServiceRestController {
 		return ResponseEntity.ok(service.getAllByID(idService));
 		
 		
+		
 	}
 	
+	@GetMapping("/{idService}/cves")
+	public ResponseEntity<Collection<CVE>> getCvesForService(@PathVariable("idService")Long idService){
+		Service bla = service.getAllByID(idService);
+		Collection<CVE> cves = new ArrayList<CVE>();
+		for (CVE cve : bla.getCVEForService()) {
+			cves.add(cve);
+		}
+		return ResponseEntity.ok(cves);
+	}
 	
 	
 	@GetMapping(params = {"nameService"})
@@ -65,7 +75,7 @@ public class ServiceRestController {
 	public ResponseEntity<Void> create(@RequestBody ServiceDTO dto, UriComponentsBuilder ucb, Principal principal){
 		
 		Assert.notNull(dto,"dto cannot be null");
-		
+		//new Random().nextLong(),
 		Service serviceent = new Service(new Random().nextLong(), dto.getNameService(),dto.getVersionService(),dto.getOsService(),dto.getPortService());
 		if (dto.getCvesService()!= null) {
 			

@@ -17,9 +17,9 @@ public class PortService {
 		return repo.findAll();
 	}
 	
-	public Port findPortBYNumber(int portNumber){
-		if (portNumber == 0) { return null;}
-		Port ports = repo.findOne(portNumber);
+	public Port findPortById(int idPort){
+		if (idPort == 0) { return null;}
+		Port ports = repo.findOne(idPort);
 		if (ports==null) { return null;}
 		return ports;
 		

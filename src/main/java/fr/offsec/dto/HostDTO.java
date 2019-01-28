@@ -19,7 +19,7 @@ public class HostDTO {
 	
 	private boolean isNewDTO;
 
-	private Port[] portsDTO;
+	private PortDTO[] portsDTO;
 	
 	private Job jobHostDTO;
 
@@ -35,7 +35,7 @@ public class HostDTO {
 		return isNewDTO;
 	}
 
-	public Port[] getPortsDTO() {
+	public PortDTO[] getPortsDTO() {
 		return portsDTO;
 	}
 
@@ -55,7 +55,7 @@ public class HostDTO {
 		this.isNewDTO = isNewDTO;
 	}
 
-	public void setPortsDTO(Port[] portsDTO) {
+	public void setPortsDTO(PortDTO[] portsDTO) {
 		this.portsDTO = portsDTO;
 	}
 

@@ -16,6 +16,7 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 @Entity
@@ -32,6 +33,7 @@ public class Port {
 	
 	@JsonProperty
 	private String status;
+	
 	
 	@OneToMany(mappedBy= "port", cascade=CascadeType.ALL)
 	private Collection<Service> services = new ArrayList<Service>();

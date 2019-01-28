@@ -7,6 +7,8 @@ import java.util.UUID;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -19,6 +21,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import antlr.collections.List;
@@ -30,6 +33,7 @@ public class Service {
 	
 	@JsonProperty
 	@Id
+	//@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long idService;
 	
 	@JsonProperty
@@ -43,10 +47,11 @@ public class Service {
 
 	
 	@ManyToOne(fetch = FetchType.LAZY, optional = true)
-  //  @JoinColumn(name = "port_id", nullable = false)
+  //  @JoinColumn(name = "id_port", nullable = false)
 	//@JsonIgnore
 	private Port port;
 	
+	@JsonManagedReference
 	@OneToMany(mappedBy= "service", cascade=CascadeType.ALL)
 	//@JoinColumn(name= "idService")
 	private Collection<CVE> cves = new ArrayList<CVE>();

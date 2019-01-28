@@ -9,54 +9,54 @@ import fr.offsec.domain.Service;
 @JsonInclude(value=Include.NON_EMPTY)
 public class PortDTO {
 	
-	private int idPortDTO;
+	private int idPort;
 	
-	private String protocolPortDTO;
+	private String protocolPort;
 	
-	private String statusPortDTO;
+	private String statusPort;
 	
-	private Host hostPortDTO;
+	private Host hostPort;
 	
-	private Service[] servicesPortDTO;
+	private ServiceDTO[] servicesPort;
 
-	public int getIdPortDTO() {
-		return idPortDTO;
+	public int getIdPort() {
+		return idPort;
 	}
 
-	public String getProtocolPortDTO() {
-		return protocolPortDTO;
+	public String getProtocolPort() {
+		return protocolPort;
 	}
 
-	public String getStatusPortDTO() {
-		return statusPortDTO;
+	public String getStatusPort() {
+		return statusPort;
 	}
 
-	public Host getHostPortDTO() {
-		return hostPortDTO;
+	public Host getHostPort() {
+		return hostPort;
 	}
 
-	public Service[] getServicesPortDTO() {
-		return servicesPortDTO;
+	public ServiceDTO[] getServicesPort() {
+		return servicesPort;
 	}
 
-	public void setIdPortDTO(int idPortDTO) {
-		this.idPortDTO = idPortDTO;
+	public void setIdPortDTO(int idPort) {
+		this.idPort = idPort;
 	}
 
-	public void setProtocolPortDTO(String protocolPortDTO) {
-		this.protocolPortDTO = protocolPortDTO;
+	public void setProtocolPort(String protocolPort) {
+		this.protocolPort = protocolPort;
 	}
 
-	public void setStatusPortDTO(String statusPortDTO) {
-		this.statusPortDTO = statusPortDTO;
+	public void setStatusPort(String statusPort) {
+		this.statusPort = statusPort;
 	}
 
-	public void setHostPortDTO(Host hostPortDTO) {
-		this.hostPortDTO = hostPortDTO;
+	public void setHostPort(Host hostPort) {
+		this.hostPort = hostPort;
 	}
 
-	public void setServicesPortDTO(Service[] servicesPortDTO) {
-		this.servicesPortDTO = servicesPortDTO;
+	public void setServicesPort(ServiceDTO[] servicesPort) {
+		this.servicesPort = servicesPort;
 	}
 	
 	
