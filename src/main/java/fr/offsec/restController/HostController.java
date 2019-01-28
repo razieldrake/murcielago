@@ -45,12 +45,12 @@ public class HostController {
 	}
 	
 	@GetMapping(params= {"ipaddr"})
-	public ResponseEntity<Host> getOneByID(@RequestParam(name = "ipaddr")Inet4Address ipaddr){
+	public ResponseEntity<Host> getOneByID(@RequestParam(name = "ipaddr")Long ipaddr){
 		return ResponseEntity.ok(service.findAllByIP(ipaddr));
 	}
 	
 	@GetMapping("/{ipaddr}/ports")
-	public ResponseEntity<Collection<Port>> getCvesForService(@PathVariable("ipaddr")Inet4Address ipaddr){
+	public ResponseEntity<Collection<Port>> getCvesForService(@PathVariable("ipaddr")Long ipaddr){
 		Host bla = service.findAllByIP(ipaddr);
 		Collection<Port> ports = new ArrayList<Port>();
 		for (Port pt : bla.getPortsOnHost()) {
@@ -62,24 +62,29 @@ public class HostController {
 	@PostMapping()
 	public ResponseEntity<Void> create(@RequestBody HostDTO dto, UriComponentsBuilder ucb, Principal principal){
 		Assert.notNull(dto,"A dto cannot be null");
-		Host host = new Host(dto.getIpHostDTO(),dto.getOsHostDTO(),dto.isNewDTO());
-		if (dto.getPortsDTO()!=null) 
+		Host host = new Host(dto.getIdHost(),dto.getIpHost(),dto.getOsHost(),dto.isNew());
+		System.out.println("prout prout");
+		if (dto.getPorts()!=null) 
 		{
-			for (PortDTO portsdto : dto.getPortsDTO()) 
+			System.out.println("prout prout prout");
+			for (PortDTO portsdto : dto.getPorts()) 
 			{
+				System.out.println("pouet");
 				Port temp = new Port(portsdto.getIdPort(),portsdto.getProtocolPort(),portsdto.getStatusPort());
 				host.getPortsOnHost().add(temp);
-				if (temp.getServiceRunningOnPort()!=null)
+				if (portsdto.getServicesPort()!=null)
 				{
+					System.out.println("pouet");System.out.println("pouet");
 					for (ServiceDTO ser : portsdto.getServicesPort())
 					{
-						Service serv = new Service(ser.getIdService(), ser.getNameService(), ser.getVersionService(), ser.getOsService(),temp);
+						Service serv = new Service(new Random().nextLong(), ser.getNameService(), ser.getVersionService(), ser.getOsService(),temp);
 						temp.getServiceRunningOnPort().add(serv);
 						if (serv.getCVEForService()!=null) 
 						{
-							for(CVE cve: serv.getCVEForService())
+							for(CVEDTO cve: ser.getCvesService())
 							{
-								serv.getCVEForService().add(cve);
+								CVE tmcve = new CVE(cve.getIdCVE(), cve.getBaseScoreV2(), cve.getBaseScoreV3(), cve.getImpactScoreV2(), cve.getImpactScoreV3(), cve.getVectorV2(), cve.getVectorV3(), cve.getAttackVectorV2(), cve.getAttackVectorV3(), cve.getDescription(), serv);
+								serv.getCVEForService().add(tmcve);
 							}
 						}
 					}
@@ -89,7 +94,7 @@ public class HostController {
 		}
 		
 		Host savedHost = service.save(host);
-		URI location = ucb.path("/services/{id}").buildAndExpand(savedHost.getIpHost()).toUri();
+		URI location = ucb.path("/services/{id}").buildAndExpand(savedHost.getId()).toUri();
 		return ResponseEntity.created(location).build();
 	}
 	

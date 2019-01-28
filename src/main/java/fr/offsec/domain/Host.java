@@ -7,6 +7,8 @@ import java.util.Collection;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -24,9 +26,29 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonInclude(value = Include.NON_DEFAULT)
 public class Host {
 
-	@JsonProperty
 	@Id
-	private Inet4Address ipHost;
+	@JsonProperty
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
+	
+	
+	public Long getId() {
+		return id;
+	}
+
+	public Collection<Port> getPorts() {
+		return ports;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public void setPorts(Collection<Port> ports) {
+		this.ports = ports;
+	}
+	@JsonProperty
+	private String ipHost;
 	
 	@JsonProperty
 	private String osHost;
@@ -39,17 +61,18 @@ public class Host {
 	
 
 	
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@ManyToOne(fetch = FetchType.LAZY, optional = true)
    // @JoinColumn(name = "id_job", nullable = false)
 	@JsonIgnore
 	private Job job;
 	
 	@JsonCreator
-	public Host(@JsonProperty("id_host")Inet4Address ip,
+	public Host(@JsonProperty("host_id")Long id,
+				@JsonProperty("ip_host")String ip,
 				@JsonProperty("os_host")String os,
 				@JsonProperty("new_host")boolean isNewly) {
 		
-		
+		this.id = id;
 		this.ipHost = ip;
 		this.osHost = os;
 		this.isNew = isNewly;
@@ -72,10 +95,10 @@ public class Host {
 			this.job = job;
 		}
 	}
-	public Inet4Address getIpHost() {
+	public String getIpHost() {
 		return ipHost;
 	}
-	public void setIpHost(Inet4Address ipHost) {
+	public void setIpHost(String ipHost) {
 		this.ipHost = ipHost;
 	}
 	public String getOsHost() {

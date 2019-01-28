@@ -13,53 +13,65 @@ import fr.offsec.domain.Port;
 @JsonInclude(value=Include.NON_EMPTY)
 public class HostDTO {
 	
-	private Inet4Address ipHostDTO;
+	private Long idHost;
 	
-	private String osHostDTO;
+	public Long getIdHost() {
+		return idHost;
+	}
+
+
+
+	public void setIdHost(Long idHost) {
+		this.idHost = idHost;
+	}
+
+	private String ipHost;
 	
-	private boolean isNewDTO;
-
-	private PortDTO[] portsDTO;
+	private String osHost;
 	
-	private Job jobHostDTO;
+	private boolean isNew;
 
-	public Inet4Address getIpHostDTO() {
-		return ipHostDTO;
+	private PortDTO[] ports;
+	
+	private Job jobHost;
+
+	public String getIpHost() {
+		return ipHost;
 	}
 
-	public String getOsHostDTO() {
-		return osHostDTO;
+	public String getOsHost() {
+		return osHost;
 	}
 
-	public boolean isNewDTO() {
-		return isNewDTO;
+	public boolean isNew() {
+		return isNew;
 	}
 
-	public PortDTO[] getPortsDTO() {
-		return portsDTO;
+	public PortDTO[] getPorts() {
+		return ports;
 	}
 
-	public Job getJobHostDTO() {
-		return jobHostDTO;
+	public Job getJobHost() {
+		return jobHost;
 	}
 
-	public void setIpHostDTO(Inet4Address ipHostDTO) {
-		this.ipHostDTO = ipHostDTO;
+	public void setIpHost(String ipHostDTO) {
+		this.ipHost = ipHostDTO;
 	}
 
-	public void setOsHostDTO(String osHostDTO) {
-		this.osHostDTO = osHostDTO;
+	public void setOsHost(String osHostDTO) {
+		this.osHost = osHostDTO;
 	}
 
-	public void setNewDTO(boolean isNewDTO) {
-		this.isNewDTO = isNewDTO;
+	public void setNew(boolean isNewDTO) {
+		this.isNew = isNewDTO;
 	}
 
-	public void setPortsDTO(PortDTO[] portsDTO) {
-		this.portsDTO = portsDTO;
+	public void setPorts(PortDTO[] portsDTO) {
+		this.ports = portsDTO;
 	}
 
-	public void setJobHostDTO(Job jobHostDTO) {
-		this.jobHostDTO = jobHostDTO;
+	public void setJobHost(Job jobHostDTO) {
+		this.jobHost = jobHostDTO;
 	}
 }

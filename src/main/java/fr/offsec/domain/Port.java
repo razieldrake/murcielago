@@ -39,7 +39,7 @@ public class Port {
 	private Collection<Service> services = new ArrayList<Service>();
 	
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-   // @JoinColumn(name = "host_id", nullable = false)
+    @JoinColumn(name = "id", nullable = false)
 	//@JsonIgnore
 	private Host host;
 	

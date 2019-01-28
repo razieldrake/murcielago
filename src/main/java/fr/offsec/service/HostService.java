@@ -19,7 +19,7 @@ public class HostService {
 		return repo.findAll();
 	}
 	
-	public Host findAllByIP(Inet4Address ipaddr){
+	public Host findAllByIP(Long ipaddr){
 		
 		if (ipaddr == null) {
 			return null;
@@ -32,7 +32,7 @@ public class HostService {
 		
 		
 	}
-	public Iterable<Host> findOneByIP(Inet4Address ipaddr){
+	public Iterable<Host> findOneByIP(String ipaddr){
 		if (ipaddr== null) {
 			return null;
 		}
@@ -65,7 +65,7 @@ public class HostService {
 		return repo.save(host);
 	}
 	
-	public void deleteByIP(Inet4Address ipaddr) {
+	public void deleteByIP(Long ipaddr) {
 		if (ipaddr != null) {
 			repo.delete(ipaddr);
 		}
