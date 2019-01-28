@@ -60,7 +60,7 @@ public class CVERestController {
 			principal=()->"annonymous";
 		}
 		
-		CVE cve = new CVE(dto.getIdCVE(),dto.getBaseScoreV2(),dto.getBaseScoreV3(),dto.getImpactScoreV2(),dto.getImpactScoreV3(),dto.getVectorV2(),dto.getVectorV3(),dto.getAttackVectorV2(),dto.getAttackVectorV3(),dto.getDescription(),dto.getService());
+		CVE cve = new CVE(dto.getIdCVE(),dto.getBaseScoreV2(),dto.getBaseScoreV3(),dto.getImpactScoreV2(),dto.getImpactScoreV3(),dto.getVectorV2(),dto.getVectorV3(),dto.getAttackVectorV2(),dto.getAttackVectorV3(),dto.getDescription(),dto.getServiceId());
 		CVE savedCve = service.save(cve);
 		/* ANONYMOUS VERSDION
 		 * REPLACE WITH THIS ONE FOR USERNAME : CVE saveCve = service.save(cve,, principal.getName());

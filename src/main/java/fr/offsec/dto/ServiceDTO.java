@@ -11,7 +11,7 @@ import fr.offsec.domain.Port;
 @JsonInclude(value=Include.NON_EMPTY)
 public class ServiceDTO {
 
-	private UUID idService;
+	private Long idService;
 	
 	private String nameService;
 	
@@ -23,7 +23,7 @@ public class ServiceDTO {
 	
 	private CVEDTO[] cvesService;
 
-	public UUID getIdService() {
+	public Long getIdService() {
 		return idService;
 	}
 
@@ -43,7 +43,7 @@ public class ServiceDTO {
 		return cvesService;
 	}
 
-	public void setIdService(UUID idServiceDTO) {
+	public void setIdService(Long idServiceDTO) {
 		this.idService = idServiceDTO;
 	}
 

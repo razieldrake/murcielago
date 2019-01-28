@@ -19,7 +19,7 @@ public class ServiceService {
 		return repo.findAll();
 	}
 	
-	public fr.offsec.domain.Service getAllByID(UUID id) {
+	public fr.offsec.domain.Service getAllByID(Long id) {
 		if (id == null) {return null;}
 		fr.offsec.domain.Service service = repo.findOne(id);
 		if (service == null) {return null;}
@@ -42,7 +42,7 @@ public class ServiceService {
 		return repo.save(service);
 	}
 	
-	public void deleteByID(UUID id) {
+	public void deleteByID(Long id) {
 		if (id!=null) {
 			repo.delete(id);
 		}

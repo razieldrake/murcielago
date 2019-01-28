@@ -30,7 +30,7 @@ public class Service {
 	
 	@JsonProperty
 	@Id
-	private UUID idService;
+	private Long idService;
 	
 	@JsonProperty
 	private String nameService;
@@ -48,6 +48,7 @@ public class Service {
 	private Port port;
 	
 	@OneToMany(mappedBy= "service", cascade=CascadeType.ALL)
+	//@JoinColumn(name= "idService")
 	private Collection<CVE> cves = new ArrayList<CVE>();
 	
 	protected Service() {
@@ -55,22 +56,21 @@ public class Service {
 	}
 	
 	@JsonCreator
-	public Service(@JsonProperty("id_service") UUID id,
+	public Service(@JsonProperty("id_service") Long id,
 				   @JsonProperty("name_service")String name,
 				   @JsonProperty("version_service")String version,
 				   @JsonProperty("guessed_os_service")String os,
-				   @JsonProperty("id_port")Port port,
-				   @JsonProperty("cves")ArrayList<CVE> cves) {
+				   @JsonProperty("id_port")Port port) {
 		this.idService = id;
 		this.nameService = name;
 		this.versionService = version;
 		this.OsService = os;
 		this.port = port;
-		this.cves = cves;
+		
 	
 	}
 	
-	public UUID getIdService() {
+	public Long getIdService() {
 		return this.idService;
 	}
 	public String getNameService() {
@@ -96,7 +96,7 @@ public class Service {
 	public void setPort(Port newPort) {
 		this.port = newPort;
 	}
-	public void setIdService(UUID newID) {
+	public void setIdService(Long newID) {
 		this.idService = newID;
 	}
 	public void setNameService(String name) {

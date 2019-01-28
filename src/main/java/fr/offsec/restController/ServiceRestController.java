@@ -2,6 +2,9 @@ package fr.offsec.restController;
 
 import java.net.URI;
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Random;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,15 +35,20 @@ public class ServiceRestController {
 	@GetMapping()
 	public ResponseEntity<Iterable<Service>> getAll(){
 		
+		
 		return ResponseEntity.ok(service.getAll());
 	}
 	
 	@GetMapping(params= {"idService"})
-	public ResponseEntity<Service> getOneByID(@RequestParam(name = "idService")UUID idService){
+	public ResponseEntity<Service> getOneByID(@RequestParam(name = "idService")Long idService){
+		
+		
 		return ResponseEntity.ok(service.getAllByID(idService));
 		
 		
 	}
+	
+	
 	
 	@GetMapping(params = {"nameService"})
 	public ResponseEntity<Iterable<Service>> getAllServiceByName(@RequestParam(name="nameService")String nameService){
@@ -48,7 +56,7 @@ public class ServiceRestController {
 	}
 	
 	@DeleteMapping("/{idService}")
-	public ResponseEntity<Void> deleteOneByIDCve(@PathVariable("idService")UUID idService){
+	public ResponseEntity<Void> deleteOneByIDCve(@PathVariable("idService")Long idService){
 		service.deleteByID(idService);
 		return ResponseEntity.ok().build();
 	}
@@ -57,8 +65,8 @@ public class ServiceRestController {
 	public ResponseEntity<Void> create(@RequestBody ServiceDTO dto, UriComponentsBuilder ucb, Principal principal){
 		
 		Assert.notNull(dto,"dto cannot be null");
-		//System.out.println(dto.getNameServiceDTO().toString());System.out.println(dto.getPortServiceDTO().toString());
-		Service serviceent = new Service(UUID.randomUUID(),dto.getNameService(),dto.getVersionService(),dto.getOsService(),dto.getPortService(),dto.getCvesService());
+		
+		Service serviceent = new Service(new Random().nextLong(), dto.getNameService(),dto.getVersionService(),dto.getOsService(),dto.getPortService());
 		if (dto.getCvesService()!= null) {
 			
 			System.out.println("prout");

@@ -9,7 +9,7 @@ import fr.offsec.domain.CVE;
 import fr.offsec.domain.Service;
 
 @Repository
-public interface ServiceRepository extends CrudRepository<Service, UUID> {
+public interface ServiceRepository extends CrudRepository<Service, Long> {
 	
 	//Iterable<Service> findAllByID(UUID idService);
 	
