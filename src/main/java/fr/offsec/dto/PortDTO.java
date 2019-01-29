@@ -11,11 +11,11 @@ public class PortDTO {
 	
 	private int idPort;
 	
-	private String protocolPort;
+	private String protocol;
 	
-	private String statusPort;
+	private String status;
 	
-	private Host hostPort;
+	private Host host;
 	
 	private ServiceDTO[] servicesPort;
 
@@ -23,16 +23,16 @@ public class PortDTO {
 		return idPort;
 	}
 
-	public String getProtocolPort() {
-		return protocolPort;
+	public String getProtocol() {
+		return protocol;
 	}
 
-	public String getStatusPort() {
-		return statusPort;
+	public String getStatus() {
+		return status;
 	}
 
-	public Host getHostPort() {
-		return hostPort;
+	public Host getHost() {
+		return host;
 	}
 
 	public ServiceDTO[] getServicesPort() {
@@ -44,15 +44,15 @@ public class PortDTO {
 	}
 
 	public void setProtocolPort(String protocolPort) {
-		this.protocolPort = protocolPort;
+		this.protocol = protocolPort;
 	}
 
 	public void setStatusPort(String statusPort) {
-		this.statusPort = statusPort;
+		this.status = statusPort;
 	}
 
 	public void setHostPort(Host hostPort) {
-		this.hostPort = hostPort;
+		this.host = hostPort;
 	}
 
 	public void setServicesPort(ServiceDTO[] servicesPort) {

@@ -70,19 +70,4 @@ public class CVERestController {
 		
 	}
 
-
-	
-//	@PostMapping()
-//	public ResponseEntity<Void> create(@RequestBody CVEDTO[] dtos, UriComponentsBuilder ucb, Principal principal) {
-//		Assert.notNull(dtos, "dtos cannot be null");
-//		if (principal == null) {
-//			principal=()->"anonymous";
-//		}
-//		for (CVEDTO dto : dtos) {
-//			CVE cve = new CVE(dto.getIdCVE(),dto.getBaseScoreV2(),dto.getBaseScoreV3(),dto.getImpactScoreV2(),dto.getImpactScoreV3(),dto.getVectorV2(),dto.getVectorV3(),dto.getAttackVectorV2(),dto.getAttackVectorV3(),dto.getDescription(),dto.getServiceid());
-//			CVE savedCve = service.save(cve);
-//		}
-//		return ResponseEntity.ok().build();
-//		
-//	}
 }

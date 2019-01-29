@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import fr.offsec.domain.CVE;
+import fr.offsec.domain.Host;
 import fr.offsec.domain.Service;
 import fr.offsec.dto.CVEDTO;
 import fr.offsec.dto.ServiceDTO;
@@ -35,7 +36,8 @@ public class ServiceRestController {
 	@GetMapping()
 	public ResponseEntity<Iterable<Service>> getAll(){
 		
-		
+		Iterable <Service> ser = service.getAll();
+		ser.forEach(s->s.getCVEForService().clear());
 		return ResponseEntity.ok(service.getAll());
 	}
 	
@@ -44,9 +46,7 @@ public class ServiceRestController {
 		
 		
 		return ResponseEntity.ok(service.getAllByID(idService));
-		
-		
-		
+	
 	}
 	
 	@GetMapping("/{idService}/cves")
@@ -71,24 +71,4 @@ public class ServiceRestController {
 		return ResponseEntity.ok().build();
 	}
 	
-	@PostMapping()
-	public ResponseEntity<Void> create(@RequestBody ServiceDTO dto, UriComponentsBuilder ucb, Principal principal){
-		
-		Assert.notNull(dto,"dto cannot be null");
-		//new Random().nextLong(),
-		Service serviceent = new Service(new Random().nextLong(), dto.getNameService(),dto.getVersionService(),dto.getOsService(),dto.getPortService());
-		if (dto.getCvesService()!= null) {
-			
-			System.out.println("prout");
-			
-			for (CVEDTO cvedtos : dto.getCvesService()) {
-				serviceent.getCVEForService().add(new CVE(cvedtos.getIdCVE(), cvedtos.getBaseScoreV2(), cvedtos.getBaseScoreV3(), cvedtos.getImpactScoreV2(), cvedtos.getImpactScoreV3(), cvedtos.getVectorV2(), cvedtos.getVectorV3(), cvedtos.getAttackVectorV2(), cvedtos.getAttackVectorV3(), cvedtos.getDescription(),serviceent));
-			}
-		}
-		
-		Service savedService = service.save(serviceent);
-		URI location = ucb.path("/services/{id}").buildAndExpand(savedService.getIdService()).toUri();
-		return ResponseEntity.created(location).build();
-		
-	}
 }

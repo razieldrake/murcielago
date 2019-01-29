@@ -56,6 +56,7 @@ public class Host {
 	@JsonProperty
 	private boolean isNew; // Triggered is the IP has never been discovered by an anterior scan
 
+	@JsonIgnore
 	@OneToMany(mappedBy= "host", cascade=CascadeType.ALL)
 	private Collection<Port> ports = new ArrayList<Port>();
 	
@@ -65,6 +66,10 @@ public class Host {
    // @JoinColumn(name = "id_job", nullable = false)
 	@JsonIgnore
 	private Job job;
+	
+	protected Host() {
+		
+	}
 	
 	@JsonCreator
 	public Host(@JsonProperty("host_id")Long id,

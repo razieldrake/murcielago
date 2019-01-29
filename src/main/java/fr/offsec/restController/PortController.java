@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.offsec.domain.CVE;
+import fr.offsec.domain.Host;
 import fr.offsec.domain.Port;
 import fr.offsec.domain.Service;
 import fr.offsec.service.PortService;
@@ -25,7 +26,8 @@ public class PortController {
 	@GetMapping()
 	public ResponseEntity<Iterable<Port>> getAll(){
 		
-		
+		Iterable <Port> port = 	service.getAll();
+		port.forEach(h->h.getServiceRunningOnPort().clear());
 		return ResponseEntity.ok(service.getAll());
 	}
 

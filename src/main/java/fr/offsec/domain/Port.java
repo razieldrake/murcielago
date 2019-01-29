@@ -13,8 +13,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -34,13 +36,16 @@ public class Port {
 	@JsonProperty
 	private String status;
 	
-	
+	@JsonIgnore
+	@JsonIgnoreProperties("port")
 	@OneToMany(mappedBy= "port", cascade=CascadeType.ALL)
+//	@JsonBackReference
 	private Collection<Service> services = new ArrayList<Service>();
+	
 	
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id", nullable = false)
-	//@JsonIgnore
+	@JsonIgnore
 	private Host host;
 	
 	protected Port() {

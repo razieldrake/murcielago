@@ -40,7 +40,8 @@ public class HostController {
 	
 	@GetMapping()
 	public ResponseEntity<Iterable<Host>> getAll(){
-				
+		Iterable <Host> host = 	service.getAll();
+		host.forEach(h->h.getPortsOnHost().clear());
 		return ResponseEntity.ok(service.getAll());
 	}
 	
@@ -58,7 +59,7 @@ public class HostController {
 		}
 		return ResponseEntity.ok(ports);
 	}
-	
+
 	@PostMapping()
 	public ResponseEntity<Void> create(@RequestBody HostDTO dto, UriComponentsBuilder ucb, Principal principal){
 		Assert.notNull(dto,"A dto cannot be null");
@@ -70,17 +71,19 @@ public class HostController {
 			for (PortDTO portsdto : dto.getPorts()) 
 			{
 				System.out.println("pouet");
-				Port temp = new Port(portsdto.getIdPort(),portsdto.getProtocolPort(),portsdto.getStatusPort());
+				Port temp = new Port(portsdto.getIdPort(),portsdto.getProtocol(),portsdto.getStatus());
 				host.getPortsOnHost().add(temp);
 				if (portsdto.getServicesPort()!=null)
 				{
 					System.out.println("pouet");System.out.println("pouet");
 					for (ServiceDTO ser : portsdto.getServicesPort())
 					{
-						Service serv = new Service(new Random().nextLong(), ser.getNameService(), ser.getVersionService(), ser.getOsService(),temp);
+						Service serv = new Service(new Random().nextLong(), ser.getNameService(), ser.getVersionService(), ser.getOsService());
+						serv.setPort(temp);
 						temp.getServiceRunningOnPort().add(serv);
 						if (serv.getCVEForService()!=null) 
 						{
+							System.out.println("bataclan was here");System.out.println("bataclan was here");
 							for(CVEDTO cve: ser.getCvesService())
 							{
 								CVE tmcve = new CVE(cve.getIdCVE(), cve.getBaseScoreV2(), cve.getBaseScoreV3(), cve.getImpactScoreV2(), cve.getImpactScoreV3(), cve.getVectorV2(), cve.getVectorV3(), cve.getAttackVectorV2(), cve.getAttackVectorV3(), cve.getDescription(), serv);
@@ -90,14 +93,10 @@ public class HostController {
 					}
 				}
 			}
-			
 		}
 		
 		Host savedHost = service.save(host);
 		URI location = ucb.path("/services/{id}").buildAndExpand(savedHost.getId()).toUri();
 		return ResponseEntity.created(location).build();
 	}
-	
-	
-
 }

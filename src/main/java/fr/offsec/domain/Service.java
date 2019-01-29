@@ -15,10 +15,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 //import org.hibernate.mapping.Array;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -47,11 +50,13 @@ public class Service {
 
 	
 	@ManyToOne(fetch = FetchType.LAZY, optional = true)
-  //  @JoinColumn(name = "id_port", nullable = false)
-	//@JsonIgnore
+    @JoinColumn(name = "id_Port", nullable = false)
+	@JsonIgnoreProperties("service")
+	//@JsonManagedReference
 	private Port port;
 	
-	@JsonManagedReference
+	//@JsonManagedReference
+	@JsonIgnore
 	@OneToMany(mappedBy= "service", cascade=CascadeType.ALL)
 	//@JoinColumn(name= "idService")
 	private Collection<CVE> cves = new ArrayList<CVE>();
@@ -64,13 +69,13 @@ public class Service {
 	public Service(@JsonProperty("id_service") Long id,
 				   @JsonProperty("name_service")String name,
 				   @JsonProperty("version_service")String version,
-				   @JsonProperty("guessed_os_service")String os,
-				   @JsonProperty("id_port")Port port) {
+				   @JsonProperty("guessed_os_service")String os) {
+				  // @JsonProperty("id_port")Port port) {
 		this.idService = id;
 		this.nameService = name;
 		this.versionService = version;
 		this.OsService = os;
-		this.port = port;
+		//this.port = port;
 		
 	
 	}
