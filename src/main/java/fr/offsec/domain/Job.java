@@ -7,6 +7,8 @@ import javax.*;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -24,10 +26,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Entity
 @Table(name="Job")
 @JsonInclude(value = Include.NON_DEFAULT)
+
 public class Job {
 	
 	@JsonProperty
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int idJob;
 
 	@JsonProperty
@@ -40,21 +44,23 @@ public class Job {
 	private String statusJob;
 	
 	@JsonProperty
-	@JsonFormat(pattern = "yyyy-MM-dd@HH:mm:ss")
+	@JsonFormat(pattern = "yyyy-MM-dd@HH:mm")
 	private LocalDate startedAt;
 	
 	@JsonProperty
-	@JsonFormat(pattern = "yyyy-MM-dd@HH:mm:ss")
+	@JsonFormat(pattern = "yyyy-MM-dd@HH:mm")
 	private LocalDate endAt;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy= "job", cascade=CascadeType.ALL)
 	private Collection<Host> hostList = new ArrayList<Host>();
 	
+	@JsonIgnore
 	@OneToMany(mappedBy="job",cascade=CascadeType.ALL)
 	private Collection<Log> logList = new ArrayList<Log>();
 	
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "user_id", nullable = false)
+  //  @JoinColumn(name = "user_id", nullable = false)
 	@JsonIgnore
 	private User user;
 	
@@ -84,6 +90,7 @@ public class Job {
 	public Collection<Host> getHost(){
 		return this.hostList;
 	}
+	
 	public Collection<Log> getLog(){
 		return this.logList;
 	}
@@ -135,6 +142,8 @@ public class Job {
 	public void setEndAt(LocalDate endAt) {
 		this.endAt = endAt;
 	}
+	
+	
 	
 
 }

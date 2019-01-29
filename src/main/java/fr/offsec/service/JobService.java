@@ -18,6 +18,11 @@ public class JobService {
 		return repo.findAll();
 	}
 	
+	public Job findOneById(int idJob) {
+		
+		return repo.findOne(idJob);
+	}
+	
 	public Iterable<Job> findAllByID(int idJob){
 		if(idJob == 0) {
 			return null;

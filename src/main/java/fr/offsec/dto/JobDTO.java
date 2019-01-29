@@ -13,95 +13,95 @@ import fr.offsec.domain.User;
 @JsonInclude(value=Include.NON_EMPTY)
 public class JobDTO {
 
-	private int idJobDTO;
+	private int idJob;
 	
-	private String nameJobDTO;
+	private String nameJob;
 	
-	private String descrJobDTO;
+	private String descrJob;
 	
-	private String statusJobDTO;
+	private String statusJob;
 	
-	@JsonFormat(pattern = "yyyy-MM-dd@HH:mm:ss")
-	private LocalDate startedAtDTO;
+	@JsonFormat(pattern = "yyyy-MM-dd@HH:mm")
+	private LocalDate startedAt;
 	
-	@JsonFormat(pattern = "yyyy-MM-dd@HH:mm:ss")
-	private LocalDate endAtDTO;
+	@JsonFormat(pattern = "yyyy-MM-dd@HH:mm")
+	private LocalDate endAt;
 	
-	private Host[] hostListDTO;
+	private Host[] hostList;
 	
-	private Log[] logListDTO;
+	private Log[] logList;
 	
-	private User userDTO;
+	private User user;
 
-	public int getIdJobDTO() {
-		return idJobDTO;
+	public int getIdJob() {
+		return idJob;
 	}
 
-	public String getNameJobDTO() {
-		return nameJobDTO;
+	public String getNameJob() {
+		return nameJob;
 	}
 
-	public String getDescrJobDTO() {
-		return descrJobDTO;
+	public String getDescrJob() {
+		return descrJob;
 	}
 
-	public String getStatusJobDTO() {
-		return statusJobDTO;
+	public String getStatusJob() {
+		return statusJob;
 	}
 
-	public LocalDate getStartedAtDTO() {
-		return startedAtDTO;
+	public LocalDate getStartedAt() {
+		return startedAt;
 	}
 
-	public LocalDate getEndAtDTO() {
-		return endAtDTO;
+	public LocalDate getEndAt() {
+		return endAt;
 	}
 
-	public Host[] getHostListDTO() {
-		return hostListDTO;
+	public Host[] getHostList() {
+		return hostList;
 	}
 
-	public Log[] getLogListDTO() {
-		return logListDTO;
+	public Log[] getLogList() {
+		return logList;
 	}
 
-	public User getUserDTO() {
-		return userDTO;
+	public User getUser() {
+		return user;
 	}
 
-	public void setIdJobDTO(int idJobDTO) {
-		this.idJobDTO = idJobDTO;
+	public void setIdJob(int idJobDTO) {
+		this.idJob = idJobDTO;
 	}
 
-	public void setNameJobDTO(String nameJobDTO) {
-		this.nameJobDTO = nameJobDTO;
+	public void setNameJob(String nameJobDTO) {
+		this.nameJob = nameJobDTO;
 	}
 
-	public void setDescrJobDTO(String descrJobDTO) {
-		this.descrJobDTO = descrJobDTO;
+	public void setDescrJob(String descrJobDTO) {
+		this.descrJob = descrJobDTO;
 	}
 
-	public void setStatusJobDTO(String statusJobDTO) {
-		this.statusJobDTO = statusJobDTO;
+	public void setStatusJob(String statusJobDTO) {
+		this.statusJob = statusJobDTO;
 	}
 
-	public void setStartedAtDTO(LocalDate startedAtDTO) {
-		this.startedAtDTO = startedAtDTO;
+	public void setStartedAt(LocalDate startedAtDTO) {
+		this.startedAt = startedAtDTO;
 	}
 
-	public void setEndAtDTO(LocalDate endAtDTO) {
-		this.endAtDTO = endAtDTO;
+	public void setEndAt(LocalDate endAtDTO) {
+		this.endAt = endAtDTO;
 	}
 
-	public void setHostListDTO(Host[] hostListDTO) {
-		this.hostListDTO = hostListDTO;
+	public void setHostList(Host[] hostListDTO) {
+		this.hostList = hostListDTO;
 	}
 
-	public void setLogListDTO(Log[] logListDTO) {
-		this.logListDTO = logListDTO;
+	public void setLogList(Log[] logListDTO) {
+		this.logList = logListDTO;
 	}
 
-	public void setUserDTO(User userDTO) {
-		this.userDTO = userDTO;
+	public void setUser(User userDTO) {
+		this.user = userDTO;
 	}
 }

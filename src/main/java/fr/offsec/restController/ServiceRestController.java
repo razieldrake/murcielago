@@ -36,8 +36,8 @@ public class ServiceRestController {
 	@GetMapping()
 	public ResponseEntity<Iterable<Service>> getAll(){
 		
-		Iterable <Service> ser = service.getAll();
-		ser.forEach(s->s.getCVEForService().clear());
+		//Iterable <Service> ser = service.getAll();
+		//ser.forEach(s->s.getCVEForService().clear());
 		return ResponseEntity.ok(service.getAll());
 	}
 	

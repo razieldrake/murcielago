@@ -32,7 +32,7 @@ public class User {
 	
 	@JsonProperty
 	@Id
-	private UUID idUser;
+	private Long idUser;
 	
 	@JsonProperty
 	private String username;
@@ -40,6 +40,7 @@ public class User {
 	@JsonProperty
 	private String password;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy= "user", cascade=CascadeType.ALL)
 	private Collection<Job> jobs = new ArrayList<Job>();
 	
@@ -49,7 +50,7 @@ public class User {
 	private Group group;
 	
 	@JsonCreator
-	public User(@JsonProperty("id_user")UUID id,
+	public User(@JsonProperty("id_user")Long id,
 				@JsonProperty("username")String user,
 				@JsonProperty("password")String pwd) {
 		
@@ -67,10 +68,10 @@ public class User {
 			this.jobs = jobs;
 		}
 	}
-	public UUID getIdUser() {
+	public Long getIdUser() {
 		return idUser;
 	}
-	public void setIdUser(UUID idUser) {
+	public void setIdUser(Long idUser) {
 		this.idUser = idUser;
 	}
 	public String getUsername() {

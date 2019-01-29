@@ -12,6 +12,7 @@ import fr.offsec.domain.Service;
 @Repository
 public interface JobRepository extends CrudRepository<Job, Integer> {
 	
+	Job findOne(int idJob);
 	Iterable<Job> findAllByIdJob(int idJob);
 	Iterable<Job> findAllByNameJob(String name);
 	Iterable<Job> findAllJobByStatusJob(String status);
