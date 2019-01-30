@@ -82,8 +82,8 @@ public class CVE {
 	@JsonProperty
 	private String descCVE;
 	
-	@JsonIgnore
 	//@JsonBackReference
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "id_service", nullable=false)
 	private Service service;

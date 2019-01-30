@@ -36,13 +36,15 @@ public class Port {
 	@JsonProperty
 	private String status;
 	
+	//@JsonIgnore
+	//@JsonIgnoreProperties("Host")
+	//@JsonBackReference
 	@JsonIgnore
-	@JsonIgnoreProperties("port")
 	@OneToMany(mappedBy= "port", cascade=CascadeType.ALL)
-//	@JsonBackReference
 	private Collection<Service> services = new ArrayList<Service>();
 	
-	
+	//@JsonIgnoreProperties("Port")
+	//@JsonManagedReference
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id", nullable = false)
 	@JsonIgnore

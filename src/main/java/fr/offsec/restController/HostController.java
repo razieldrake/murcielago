@@ -51,14 +51,20 @@ public class HostController {
 	}
 	
 	@GetMapping("/{ipaddr}/ports")
-	public ResponseEntity<Collection<Port>> getCvesForService(@PathVariable("ipaddr")Long ipaddr){
+	public ResponseEntity<Collection<Port>> getPortsforHost(@PathVariable("ipaddr")Long ipaddr){
 		Host bla = service.findAllByIP(ipaddr);
-		Collection<Port> ports = new ArrayList<Port>();
-		for (Port pt : bla.getPortsOnHost()) {
-			ports.add(pt);
-		}
-		return ResponseEntity.ok(ports);
+		bla.getPorts().forEach(p->p.getServiceRunningOnPort().clear());
+		return ResponseEntity.ok(bla.getPorts());
+		
 	}
+	
+	@GetMapping("/{ipaddr}/{idPort}/services")
+	public ResponseEntity<Collection<Service>> getServiceOnPort(@PathVariable("ipaddr")Long ipaddr,	@PathVariable("idPort")int idPort){
+		Host ho = service.findAllByIP(ipaddr);
+		ho.getPorts().forEach(p->p.getServiceRunningOnPort().forEach(s->s.getCVEForService().clear()));
+		return ResponseEntity.ok
+	}
+	
 
 	@PostMapping()
 	public ResponseEntity<Void> create(@RequestBody HostDTO dto, UriComponentsBuilder ucb, Principal principal){

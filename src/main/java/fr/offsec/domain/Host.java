@@ -15,8 +15,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -56,15 +58,15 @@ public class Host {
 	@JsonProperty
 	private boolean isNew; // Triggered is the IP has never been discovered by an anterior scan
 
-	@JsonIgnore
+	//@JsonIgnoreProperties("ports")
 	@OneToMany(mappedBy= "host", cascade=CascadeType.ALL)
+	@JsonBackReference
 	private Collection<Port> ports = new ArrayList<Port>();
 	
 
-	
-	@ManyToOne(fetch = FetchType.LAZY, optional = true)
-   // @JoinColumn(name = "id_job", nullable = false)
+	 // @JoinColumn(name = "id_job", nullable = false)
 	@JsonIgnore
+	@ManyToOne(fetch = FetchType.LAZY, optional = true)
 	private Job job;
 	
 	protected Host() {

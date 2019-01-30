@@ -38,6 +38,7 @@ public class ServiceRestController {
 		
 		//Iterable <Service> ser = service.getAll();
 		//ser.forEach(s->s.getCVEForService().clear());
+		
 		return ResponseEntity.ok(service.getAll());
 	}
 	
@@ -51,12 +52,17 @@ public class ServiceRestController {
 	
 	@GetMapping("/{idService}/cves")
 	public ResponseEntity<Collection<CVE>> getCvesForService(@PathVariable("idService")Long idService){
+		
+		
 		Service bla = service.getAllByID(idService);
+		//bla.getCVEForService().clear();
+	/*	bla.getCVEForService().forEach(cve->cve.);
 		Collection<CVE> cves = new ArrayList<CVE>();
 		for (CVE cve : bla.getCVEForService()) {
 			cves.add(cve);
-		}
-		return ResponseEntity.ok(cves);
+		}*/
+		
+		return ResponseEntity.ok(bla.getCVEForService());
 	}
 	
 	

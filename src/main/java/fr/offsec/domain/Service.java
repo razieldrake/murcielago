@@ -48,17 +48,17 @@ public class Service {
 	@JsonProperty
 	private String OsService;
 
-	
+	//@JsonManagedReference
+	//@JsonIgnoreProperties("service")
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "id_Port", nullable = false)
-	@JsonIgnoreProperties("service")
-	//@JsonManagedReference
 	private Port port;
 	
 	//@JsonManagedReference
+	//@JoinColumn(name= "idService")
 	@JsonIgnore
 	@OneToMany(mappedBy= "service", cascade=CascadeType.ALL)
-	//@JoinColumn(name= "idService")
 	private Collection<CVE> cves = new ArrayList<CVE>();
 	
 	protected Service() {
