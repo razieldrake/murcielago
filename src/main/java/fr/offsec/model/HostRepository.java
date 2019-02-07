@@ -17,6 +17,9 @@ public interface HostRepository extends CrudRepository<Host, Long> {
 	//Host findOneByIP(Inet4Address ipaddr);
 	Iterable<Host> findAllByOsHost(String os);
 	
+	Host findOneByIpHost(String ipaddr);
+	Host findOneById(int id);
+	
 	
 	
 }

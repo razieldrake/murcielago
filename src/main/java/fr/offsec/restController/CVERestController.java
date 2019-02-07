@@ -52,22 +52,22 @@ public class CVERestController {
 /*
  * POSTMAPPING FOR ONE CVE	
 */
-	@PostMapping()
+/*	@PostMapping()
 	public ResponseEntity<Void> create(@RequestBody CVEDTO dto, UriComponentsBuilder ucb, Principal principal){
 		System.out.println("prout");
 		Assert.notNull(dto, "dto cannot be null");
 		if (principal == null) {
 			principal=()->"annonymous";
-		}
+		}*/
 		
-		CVE cve = new CVE(dto.getIdCVE(),dto.getBaseScoreV2(),dto.getBaseScoreV3(),dto.getImpactScoreV2(),dto.getImpactScoreV3(),dto.getVectorV2(),dto.getVectorV3(),dto.getAttackVectorV2(),dto.getAttackVectorV3(),dto.getDescription(),dto.getServiceId());
-		CVE savedCve = service.save(cve);
+	//	CVE cve = new CVE(dto.getIdCVE(),dto.getBaseScoreV2(),dto.getBaseScoreV3(),dto.getImpactScoreV2(),dto.getImpactScoreV3(),dto.getVectorV2(),dto.getVectorV3(),dto.getAttackVectorV2(),dto.getAttackVectorV3(),dto.getDescription(),dto.getServiceId());
+	//	CVE savedCve = service.save(cve);
 		/* ANONYMOUS VERSDION
 		 * REPLACE WITH THIS ONE FOR USERNAME : CVE saveCve = service.save(cve,, principal.getName());
 		 */
-		URI location = ucb.path("/cves/{IDCve}").buildAndExpand(savedCve.getIdCVE()).toUri();
-		return ResponseEntity.created(location).build();
+	//	URI location = ucb.path("/cves/{IDCve}").buildAndExpand(savedCve.getIdCVE()).toUri();
+	//	return ResponseEntity.created(location).build();
 		
 	}
 
-}
+

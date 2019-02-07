@@ -60,7 +60,7 @@ public class Host {
 
 	//@JsonIgnoreProperties("ports")
 	@OneToMany(mappedBy= "host", cascade=CascadeType.ALL)
-	@JsonBackReference
+	//@JsonIgnore
 	private Collection<Port> ports = new ArrayList<Port>();
 	
 

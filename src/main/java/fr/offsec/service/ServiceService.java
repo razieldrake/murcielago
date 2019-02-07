@@ -6,6 +6,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import fr.offsec.domain.CVE;
+import fr.offsec.domain.Port;
 import fr.offsec.model.ServiceRepository;
 
 
@@ -46,6 +47,13 @@ public class ServiceService {
 		if (id!=null) {
 			repo.delete(id);
 		}
+	}
+
+	public Iterable<fr.offsec.domain.Service> findAllByIdPort(Port port) {
+		if (port==null) {return null;}
+		Iterable<fr.offsec.domain.Service> services = repo.getAllByPort(port.getIdPort());
+		// TODO Auto-generated method stub
+		return services;
 	}
 	
 	

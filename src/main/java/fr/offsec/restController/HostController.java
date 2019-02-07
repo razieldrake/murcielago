@@ -5,6 +5,7 @@ import java.net.URI;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,7 @@ import fr.offsec.dto.PortDTO;
 import fr.offsec.dto.ServiceDTO;
 import fr.offsec.service.HostService;
 import fr.offsec.service.PortService;
+import fr.offsec.service.ServiceService;
 
 @RestController
 @RequestMapping(path="/hosts")
@@ -37,6 +39,14 @@ public class HostController {
 	
 	@Autowired
 	HostService service;
+	
+	//Ju
+	@Autowired
+	PortService portService;
+	@Autowired
+	ServiceService serviceService;
+	//
+	
 	
 	@GetMapping()
 	public ResponseEntity<Iterable<Host>> getAll(){
@@ -58,12 +68,22 @@ public class HostController {
 		
 	}
 	
-	@GetMapping("/{ipaddr}/{idPort}/services")
-	public ResponseEntity<Collection<Service>> getServiceOnPort(@PathVariable("ipaddr")Long ipaddr,	@PathVariable("idPort")int idPort){
-		Host ho = service.findAllByIP(ipaddr);
-		ho.getPorts().forEach(p->p.getServiceRunningOnPort().forEach(s->s.getCVEForService().clear()));
-		return ResponseEntity.ok
+	@GetMapping("/ports/{idPort}/services")
+	public ResponseEntity<Collection<Service>> getServicePort(@PathVariable("idPort")int idPort){
+		Port p = portService.findPortById(idPort);
+		p.getServiceRunningOnPort().forEach(s->s.getPortForService().getServiceRunningOnPort().clear());
+		return ResponseEntity.ok(p.getServiceRunningOnPort());
 	}
+	
+	@GetMapping("/{ipaddr}/ports/{idPort}/services")
+	public ResponseEntity<Collection<Service>> getServiceOnPort(@PathVariable("ipaddr")Long ipaddr,@PathVariable("idPort")int idPort){
+
+		Host h = service.findAllByIP(ipaddr);
+		Port p = portService.findPortById(idPort);
+		return ResponseEntity.ok(p.getServiceRunningOnPort());
+	
+	}
+
 	
 
 	@PostMapping()
@@ -92,8 +112,9 @@ public class HostController {
 							System.out.println("bataclan was here");System.out.println("bataclan was here");
 							for(CVEDTO cve: ser.getCvesService())
 							{
-								CVE tmcve = new CVE(cve.getIdCVE(), cve.getBaseScoreV2(), cve.getBaseScoreV3(), cve.getImpactScoreV2(), cve.getImpactScoreV3(), cve.getVectorV2(), cve.getVectorV3(), cve.getAttackVectorV2(), cve.getAttackVectorV3(), cve.getDescription(), serv);
+								CVE tmcve = new CVE(cve.getIdCVE(), cve.getBaseScoreV2(), cve.getBaseScoreV3(), cve.getImpactScoreV2(), cve.getImpactScoreV3(), cve.getVectorV2(), cve.getVectorV3(), cve.getAttackVectorV2(), cve.getAttackVectorV3(), cve.getDescription());
 								serv.getCVEForService().add(tmcve);
+								tmcve.setService(serv);
 							}
 						}
 					}

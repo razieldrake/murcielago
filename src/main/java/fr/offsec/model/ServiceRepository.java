@@ -14,6 +14,8 @@ public interface ServiceRepository extends CrudRepository<Service, Long> {
 	//Iterable<Service> findAllByID(UUID idService);
 	
 	Iterable<Service> findAllServiceByNameService(String name);
+
+	Iterable<Service> getAllByPort(int port);
 	
 	
 

@@ -37,9 +37,10 @@ public class PortController {
 		
 		return ResponseEntity.ok(service.findPortById(idPort));
 			
-		
 	}
-	@GetMapping("/{idPort}/services")
+	
+	
+/*	@GetMapping("/{idPort}/services")
 	public ResponseEntity<Collection<Service>> getCvesForService(@PathVariable("idPort")int idPort){
 		Port bla = service.findPortById(idPort);
 		Collection<Service> services = new ArrayList<Service>();
@@ -47,7 +48,7 @@ public class PortController {
 			services.add(serv);
 		}
 		return ResponseEntity.ok(services);
-	}
+	}*/
 
 
 }

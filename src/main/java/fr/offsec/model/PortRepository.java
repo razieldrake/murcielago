@@ -14,4 +14,5 @@ public interface PortRepository extends CrudRepository<Port, Integer> {
 	//Iterable<Port> findPortBYNumber(int portNumber);
 	Iterable<Port> findPortByProtocol(String protocol);
  	Iterable<Port> findPortByStatus(String status);
+	Port findOneByIdPort(int idPort);
 }

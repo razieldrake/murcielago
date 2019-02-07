@@ -20,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 /**
  * 
@@ -82,10 +83,12 @@ public class CVE {
 	@JsonProperty
 	private String descCVE;
 	
+	//@JsonManagedReference
 	//@JsonBackReference
-	@JsonIgnore
+	//@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "id_service", nullable=false)
+	@JsonIgnoreProperties("service")
 	private Service service;
 	
 	
@@ -97,9 +100,7 @@ public class CVE {
 				@JsonProperty("base_score_v3") float bScoreV3,@JsonProperty("impact_score_v2")float iScoreV2,
 				@JsonProperty("impact_score_v3")float iScoreV3,@JsonProperty("vector_v2")String vector2,
 				@JsonProperty("vector_v3")String vector3,@JsonProperty("attack_vector_v2")String attackVector2,
-				@JsonProperty("attack_vector_v3")String attackVector3,@JsonProperty("desc_cve") String descr,
-				@JsonProperty("service_id")Service service
-				) {
+				@JsonProperty("attack_vector_v3")String attackVector3,@JsonProperty("desc_cve") String descr) {
 		Assert.hasText(id, "id cannot be blank");
 		Assert.notNull(id,"id cannot be null");
 		//Assert.isTrue(score >0, "Score cannot be negative or null bnevcause it willbe not an CVE if score is at 0");
@@ -109,7 +110,7 @@ public class CVE {
 		this.idCVE = id;						this.attackvectorV2 = attackVector2;	this.baseScoreV3 = bScoreV3;
 		this.attackVectorV3 = attackVector3;	this.baseScoreV2 = bScoreV2;			this.impactScoreV2 = iScoreV2;
 		this.descCVE = descr;					this.impactScoreV3 = iScoreV3;			this.vectorv2 = vector2;
-		this.vectorV3 = vector3;				this.service = service;		
+		this.vectorV3 = vector3;				//this.service = service;		
 				
 				
 	}

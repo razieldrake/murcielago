@@ -19,7 +19,7 @@ public class PortService {
 	
 	public Port findPortById(int idPort){
 		if (idPort == 0) { return null;}
-		Port ports = repo.findOne(idPort);
+		Port ports = repo.findOneByIdPort(idPort);
 		if (ports==null) { return null;}
 		return ports;
 		
@@ -53,5 +53,6 @@ public class PortService {
  		}
  		
 }
+
 
 }

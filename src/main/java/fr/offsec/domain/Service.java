@@ -50,14 +50,20 @@ public class Service {
 
 	//@JsonManagedReference
 	//@JsonIgnoreProperties("service")
-	@JsonIgnore
-	@ManyToOne(fetch = FetchType.LAZY, optional = true)
-    @JoinColumn(name = "id_Port", nullable = false)
-	private Port port;
+	//@JsonIgnore
+	//@JoinColumn(name = "id_Port", nullable = false)
+	//@JsonIgnoreProperties("port")
 	
-	//@JsonManagedReference
-	//@JoinColumn(name= "idService")
+	@ManyToOne(fetch = FetchType.LAZY, optional = true)
+	@JoinColumn(name="idPort", nullable= false )
 	@JsonIgnore
+ 	private Port port;
+	
+
+	//@JoinColumn(name= "idService")
+	//@JsonIgnore
+	//@JsonManagedReference
+	//@JsonBackReference
 	@OneToMany(mappedBy= "service", cascade=CascadeType.ALL)
 	private Collection<CVE> cves = new ArrayList<CVE>();
 	
@@ -70,12 +76,12 @@ public class Service {
 				   @JsonProperty("name_service")String name,
 				   @JsonProperty("version_service")String version,
 				   @JsonProperty("guessed_os_service")String os) {
-				  // @JsonProperty("id_port")Port port) {
+				  
 		this.idService = id;
 		this.nameService = name;
 		this.versionService = version;
 		this.OsService = os;
-		//this.port = port;
+		
 		
 	
 	}

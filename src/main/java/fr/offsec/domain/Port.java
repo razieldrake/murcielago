@@ -39,7 +39,8 @@ public class Port {
 	//@JsonIgnore
 	//@JsonIgnoreProperties("Host")
 	//@JsonBackReference
-	@JsonIgnore
+	//@JsonIgnore
+	//@JsonManagedReference
 	@OneToMany(mappedBy= "port", cascade=CascadeType.ALL)
 	private Collection<Service> services = new ArrayList<Service>();
 	
