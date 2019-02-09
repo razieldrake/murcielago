@@ -60,6 +60,7 @@ public class ServiceRestController {
 	}
 	
 	
+	
 	@GetMapping(params = {"nameService"})
 	public ResponseEntity<Iterable<Service>> getAllServiceByName(@RequestParam(name="nameService")String nameService){
 		return ResponseEntity.ok(service.getAllServiceByName(nameService));

@@ -29,6 +29,7 @@ import fr.offsec.dto.PortDTO;
 import fr.offsec.dto.ServiceDTO;
 import fr.offsec.service.HostService;
 import fr.offsec.service.PortService;
+import fr.offsec.service.ServiceService;
 
 @RestController
 @RequestMapping(path="/hosts")
@@ -37,6 +38,12 @@ public class HostController {
 	
 	@Autowired
 	HostService service;
+	
+	@Autowired
+	PortService portService;
+	
+	@Autowired
+	ServiceService serviceService;
 	
 	@GetMapping()
 	public ResponseEntity<Iterable<Host>> getAll(){
@@ -51,13 +58,27 @@ public class HostController {
 	}
 	
 	@GetMapping("/{ipaddr}/ports")
-	public ResponseEntity<Collection<Port>> getCvesForService(@PathVariable("ipaddr")Long ipaddr){
+	public ResponseEntity<Collection<Port>> getPortForHost(@PathVariable("ipaddr")Long ipaddr){
 		Host bla = service.findAllByIP(ipaddr);
-		Collection<Port> ports = new ArrayList<Port>();
-		for (Port pt : bla.getPortsOnHost()) {
-			ports.add(pt);
-		}
-		return ResponseEntity.ok(ports);
+		return ResponseEntity.ok(bla.getPorts());
+	}
+	
+	@GetMapping("/{ipaddr}/ports/{idport}/services")
+	public ResponseEntity<Collection<Service>> getServiceForPort(@PathVariable("ipaddr")Long ipaddr,
+																 @PathVariable("idport")int idPort){
+		
+		Port port = portService.findPortById(idPort);
+		return ResponseEntity.ok(port.getServiceRunningOnPort());
+		
+	}
+	
+	@GetMapping("/{ipaddr}/ports/{idport}/services/{idService}/cves")
+	public ResponseEntity<Collection<CVE>> getCveForService(@PathVariable("ipaddr")Long ipaddr,
+															@PathVariable("idport")int idPort,
+															@PathVariable("idService")Long idService){
+		Service service = serviceService.getAllByID(idService);
+		return ResponseEntity.ok(service.getCVEForService());
+		
 	}
 
 	@PostMapping()
@@ -73,10 +94,11 @@ public class HostController {
 				System.out.println("pouet");
 				Port temp = new Port(portsdto.getIdPort(),portsdto.getProtocol(),portsdto.getStatus());
 				host.getPortsOnHost().add(temp);
-				if (portsdto.getServicesPort()!=null)
+				temp.setHost(host);
+				if (portsdto.getServiceRunningOnPort()!=null)
 				{
 					System.out.println("pouet");System.out.println("pouet");
-					for (ServiceDTO ser : portsdto.getServicesPort())
+					for (ServiceDTO ser : portsdto.getServiceRunningOnPort())
 					{
 						Service serv = new Service(new Random().nextLong(), ser.getNameService(), ser.getVersionService(), ser.getOsService());
 						serv.setPort(temp);

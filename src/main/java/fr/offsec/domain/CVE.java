@@ -83,7 +83,6 @@ public class CVE {
 	private String descCVE;
 	
 	@JsonIgnore
-	//@JsonBackReference
 	@ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "id_service", nullable=false)
 	private Service service;
@@ -102,7 +101,6 @@ public class CVE {
 				) {
 		Assert.hasText(id, "id cannot be blank");
 		Assert.notNull(id,"id cannot be null");
-		//Assert.isTrue(score >0, "Score cannot be negative or null bnevcause it willbe not an CVE if score is at 0");
 		Assert.notNull(descr,"description cannot be null");
 		Assert.hasText(descr,"A description cve cannot be empty or blank, please fill the fields");
 		

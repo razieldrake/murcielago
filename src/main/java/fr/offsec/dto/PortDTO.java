@@ -35,7 +35,7 @@ public class PortDTO {
 		return host;
 	}
 
-	public ServiceDTO[] getServicesPort() {
+	public ServiceDTO[] getServiceRunningOnPort() {
 		return servicesPort;
 	}
 

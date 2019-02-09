@@ -36,7 +36,6 @@ public class Service {
 	
 	@JsonProperty
 	@Id
-	//@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long idService;
 	
 	@JsonProperty
@@ -51,14 +50,12 @@ public class Service {
 	
 	@ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "id_Port", nullable = false)
-	@JsonIgnoreProperties("service")
-	//@JsonManagedReference
+	@JsonIgnore
 	private Port port;
 	
-	//@JsonManagedReference
+
 	@JsonIgnore
 	@OneToMany(mappedBy= "service", cascade=CascadeType.ALL)
-	//@JoinColumn(name= "idService")
 	private Collection<CVE> cves = new ArrayList<CVE>();
 	
 	protected Service() {
@@ -70,12 +67,12 @@ public class Service {
 				   @JsonProperty("name_service")String name,
 				   @JsonProperty("version_service")String version,
 				   @JsonProperty("guessed_os_service")String os) {
-				  // @JsonProperty("id_port")Port port) {
+				
 		this.idService = id;
 		this.nameService = name;
 		this.versionService = version;
 		this.OsService = os;
-		//this.port = port;
+		
 		
 	
 	}
@@ -93,7 +90,7 @@ public class Service {
 		return this.OsService;
 	}
 	
-	public Port getPortForService() {
+	public Port getPort() {
 		return this.port;
 	}
 	public Collection<CVE> getCVEForService(){

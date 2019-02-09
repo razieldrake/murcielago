@@ -63,7 +63,6 @@ public class Host {
 
 	
 	@ManyToOne(fetch = FetchType.LAZY, optional = true)
-   // @JoinColumn(name = "id_job", nullable = false)
 	@JsonIgnore
 	private Job job;
 	
