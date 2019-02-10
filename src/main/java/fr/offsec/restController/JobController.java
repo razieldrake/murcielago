@@ -98,7 +98,7 @@ public class JobController {
 	
 			
 		    try {
-				postConnection.setRequestMethod("GET");
+				postConnection.setRequestMethod("POST");
 			} catch (ProtocolException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
