@@ -32,21 +32,7 @@ public class Host {
 	private Long id;
 	
 	
-	public Long getId() {
-		return id;
-	}
-
-	public Collection<Port> getPorts() {
-		return ports;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public void setPorts(Collection<Port> ports) {
-		this.ports = ports;
-	}
+	
 	@JsonProperty
 	private String ipHost;
 	
@@ -59,8 +45,6 @@ public class Host {
 	@JsonIgnore
 	@OneToMany(mappedBy= "host", cascade=CascadeType.ALL)
 	private Collection<Port> ports = new ArrayList<Port>();
-	
-
 	
 	@ManyToOne(fetch = FetchType.LAZY, optional = true)
 	@JsonIgnore
@@ -116,5 +100,20 @@ public class Host {
 	}
 	public void setNew(boolean isNew) {
 		this.isNew = isNew;
+	}
+	public Long getId() {
+		return id;
+	}
+
+	public Collection<Port> getPorts() {
+		return ports;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public void setPorts(Collection<Port> ports) {
+		this.ports = ports;
 	}
 }

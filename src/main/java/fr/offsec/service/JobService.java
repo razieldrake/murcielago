@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 
 import fr.offsec.domain.Host;
 import fr.offsec.domain.Job;
-import fr.offsec.domain.Log;
+
 import fr.offsec.model.JobRepository;
 
 @Service
@@ -18,12 +18,12 @@ public class JobService {
 		return repo.findAll();
 	}
 	
-	public Iterable<Job> findAllByID(int idJob){
+	public Job findByID(Long idJob){
 		if(idJob == 0) {
 			return null;
 		}
 		
-		Iterable<Job> jobs = repo.findAllByIdJob(idJob);
+		Job jobs = repo.findAllByIdJob(idJob);
 		if (jobs==null) {
 			return null;
 		}
@@ -59,9 +59,7 @@ public class JobService {
 		for(Host host : jobNew.getHost()) {
 			host.setJob(jobNew);
 		}
-		for (Log log : jobNew.getLog()) {
-			log.setJob(jobNew);
-		}
+		
 		
 		return repo.save(jobNew);
 		

@@ -1,107 +1,102 @@
 package fr.offsec.dto;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import fr.offsec.domain.Host;
-import fr.offsec.domain.Log;
+
 import fr.offsec.domain.User;
 
 @JsonInclude(value=Include.NON_EMPTY)
 public class JobDTO {
 
-	private int idJobDTO;
+	private Long idJob;
 	
-	private String nameJobDTO;
+	private String nameJob;
 	
-	private String descrJobDTO;
+	private String descrJob;
 	
-	private String statusJobDTO;
+	private String statusJob;
 	
-	@JsonFormat(pattern = "yyyy-MM-dd@HH:mm:ss")
-	private LocalDate startedAtDTO;
+	@JsonFormat(pattern = "yyyy-MM-dd@HH:mm")
+	private LocalDateTime startedAt;
 	
-	@JsonFormat(pattern = "yyyy-MM-dd@HH:mm:ss")
-	private LocalDate endAtDTO;
+	@JsonFormat(pattern = "yyyy-MM-dd@HH:mm")
+	private LocalDateTime endAt;
 	
-	private Host[] hostListDTO;
+	private HostDTO[] hostList;
 	
-	private Log[] logListDTO;
-	
-	private User userDTO;
+	private User user;
 
-	public int getIdJobDTO() {
-		return idJobDTO;
+	public Long getIdJob() {
+		return idJob;
 	}
 
-	public String getNameJobDTO() {
-		return nameJobDTO;
+	public String getNameJob() {
+		return nameJob;
 	}
 
-	public String getDescrJobDTO() {
-		return descrJobDTO;
+	public String getDescrJob() {
+		return descrJob;
 	}
 
-	public String getStatusJobDTO() {
-		return statusJobDTO;
+	public String getStatusJob() {
+		return statusJob;
 	}
 
-	public LocalDate getStartedAtDTO() {
-		return startedAtDTO;
+	public LocalDateTime getStartedAt() {
+		return startedAt;
 	}
 
-	public LocalDate getEndAtDTO() {
-		return endAtDTO;
+	public LocalDateTime getEndAt() {
+		return endAt;
 	}
 
-	public Host[] getHostListDTO() {
-		return hostListDTO;
+	public HostDTO[] getHostList() {
+		return hostList;
 	}
 
-	public Log[] getLogListDTO() {
-		return logListDTO;
+
+
+	public User getUser() {
+		return user;
 	}
 
-	public User getUserDTO() {
-		return userDTO;
+	public void setIdJob(Long idJob) {
+		this.idJob = idJob;
 	}
 
-	public void setIdJobDTO(int idJobDTO) {
-		this.idJobDTO = idJobDTO;
+	public void setNameJob(String nameJob) {
+		this.nameJob = nameJob;
 	}
 
-	public void setNameJobDTO(String nameJobDTO) {
-		this.nameJobDTO = nameJobDTO;
+	public void setDescrJob(String descrJob) {
+		this.descrJob = descrJob;
 	}
 
-	public void setDescrJobDTO(String descrJobDTO) {
-		this.descrJobDTO = descrJobDTO;
+	public void setStatusJob(String statusJob) {
+		this.statusJob = statusJob;
 	}
 
-	public void setStatusJobDTO(String statusJobDTO) {
-		this.statusJobDTO = statusJobDTO;
+	public void setStartedAt(LocalDateTime startedAt) {
+		this.startedAt = startedAt;
 	}
 
-	public void setStartedAtDTO(LocalDate startedAtDTO) {
-		this.startedAtDTO = startedAtDTO;
+	public void setEndAt(LocalDateTime endAt) {
+		this.endAt = endAt;
 	}
 
-	public void setEndAtDTO(LocalDate endAtDTO) {
-		this.endAtDTO = endAtDTO;
+	public void setHostList(HostDTO[] hostList) {
+		this.hostList = hostList;
 	}
 
-	public void setHostListDTO(Host[] hostListDTO) {
-		this.hostListDTO = hostListDTO;
-	}
 
-	public void setLogListDTO(Log[] logListDTO) {
-		this.logListDTO = logListDTO;
-	}
 
-	public void setUserDTO(User userDTO) {
-		this.userDTO = userDTO;
+	public void setUser(User user) {
+		this.user = user;
 	}
 }

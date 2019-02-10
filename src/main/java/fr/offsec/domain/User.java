@@ -3,7 +3,7 @@ package fr.offsec.domain;
 import java.net.Inet4Address;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.UUID;
+
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -32,7 +32,7 @@ public class User {
 	
 	@JsonProperty
 	@Id
-	private UUID idUser;
+	private Long idUser;
 	
 	@JsonProperty
 	private String username;
@@ -41,15 +41,16 @@ public class User {
 	private String password;
 	
 	@OneToMany(mappedBy= "user", cascade=CascadeType.ALL)
+	@JsonIgnore
 	private Collection<Job> jobs = new ArrayList<Job>();
 	
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "îd_group", nullable = false)
 	@JsonIgnore
 	private Group group;
 	
 	@JsonCreator
-	public User(@JsonProperty("id_user")UUID id,
+	public User(@JsonProperty("user_id")Long id,
 				@JsonProperty("username")String user,
 				@JsonProperty("password")String pwd) {
 		
@@ -67,10 +68,10 @@ public class User {
 			this.jobs = jobs;
 		}
 	}
-	public UUID getIdUser() {
+	public Long getIdUser() {
 		return idUser;
 	}
-	public void setIdUser(UUID idUser) {
+	public void setIdUser(Long idUser) {
 		this.idUser = idUser;
 	}
 	public String getUsername() {

@@ -510,5 +510,7 @@ def update():
     e = time.localtime()
     print(time.asctime(e))
 
-if __name__ == '__main__':
-    main()
+
+
+#if __name__ == '__main__':
+ #  main()
