@@ -10,10 +10,10 @@ import fr.offsec.domain.Host;
 import fr.offsec.domain.User;
 
 @Repository
-public interface UserRepository extends CrudRepository<User, UUID> {
+public interface UserRepository extends CrudRepository<User, Long> {
 	
-	Iterable<User> findUserByIdUser(UUID user);
-	Iterable<User> findUserByUsername(String username);
+	User findUserByIdUser(Long user);
+	User findUserByUsername(String username);
 	
 	
 }

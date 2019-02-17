@@ -60,6 +60,7 @@ public class JobController {
 	public ResponseEntity<Job> getOneByID(@RequestParam(name = "idJob")Long idJob){
 		return ResponseEntity.ok(jobService.findByID(idJob));
 	}
+	
 	@GetMapping("/{idJob}/ports")
 	public ResponseEntity<Collection<Host>> getHostForJob(@PathVariable("idJob")Long idJob){
 		Job job = jobService.findByID(idJob);

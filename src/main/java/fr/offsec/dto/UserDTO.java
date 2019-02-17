@@ -1,50 +1,55 @@
 package fr.offsec.dto;
 
-import java.util.UUID;
+
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-import fr.offsec.domain.Group;
+
 import fr.offsec.domain.Job;
 
 @JsonInclude(value=Include.NON_EMPTY)
 public class UserDTO {
 	
-	private UUID idUserDTO;
-	private String usernameDTO;
-	private String passwordDTO;
-	private Group groupDTO;
-	private Job[] jobsDTO;
-	public UUID getIdUserDTO() {
-		return idUserDTO;
+	private Long idUser;
+	private String username;
+	private String password;
+	private String role;
+
+	private Job[] jobs;
+	public Long getIdUser() {
+		return idUser;
 	}
-	public String getUsernameDTO() {
-		return usernameDTO;
+	public String getUsername() {
+		return username;
 	}
-	public String getPasswordDTO() {
-		return passwordDTO;
+	public String getPassword() {
+		return password;
 	}
-	public Group getGroupDTO() {
-		return groupDTO;
-	}
+	
 	public Job[] getJobsDTO() {
-		return jobsDTO;
+		return jobs;
 	}
-	public void setIdUserDTO(UUID idUserDTO) {
-		this.idUserDTO = idUserDTO;
+	public void setIdUser(Long idUser) {
+		this.idUser = idUser;
 	}
-	public void setUsernameDTO(String usernameDTO) {
-		this.usernameDTO = usernameDTO;
+	public void setUsernameDTO(String username) {
+		this.username = username;
 	}
-	public void setPasswordDTO(String passwordDTO) {
-		this.passwordDTO = passwordDTO;
+	public void setPasswordDTO(String password) {
+		this.password= password;
 	}
-	public void setGroupDTO(Group groupDTO) {
-		this.groupDTO = groupDTO;
+	
+	public void setJobsDTO(Job[] jobs) {
+		this.jobs = jobs;
 	}
-	public void setJobsDTO(Job[] jobsDTO) {
-		this.jobsDTO = jobsDTO;
+	public String getRole() {
+		
+		return this.role;
+	}
+	
+	public void setRole(String role) {
+		this.role = role;
 	}
 
 }

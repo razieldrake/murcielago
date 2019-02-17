@@ -40,23 +40,29 @@ public class User {
 	@JsonProperty
 	private String password;
 	
+	@JsonProperty
+	private String role;
+	
 	@OneToMany(mappedBy= "user", cascade=CascadeType.ALL)
 	@JsonIgnore
 	private Collection<Job> jobs = new ArrayList<Job>();
 	
-	@ManyToOne(fetch = FetchType.LAZY, optional = true)
-    @JoinColumn(name = "îd_group", nullable = false)
-	@JsonIgnore
-	private Group group;
+
 	
+	
+	protected User() {
+		
+	}
 	@JsonCreator
 	public User(@JsonProperty("user_id")Long id,
 				@JsonProperty("username")String user,
-				@JsonProperty("password")String pwd) {
+				@JsonProperty("password")String pwd,
+				@JsonProperty("role")String role) {
 		
 		this.idUser = id;
 		this.username = user;
 		this.password = pwd;
+		this.role = role;
 	}
 	
 	
@@ -87,12 +93,21 @@ public class User {
 		this.password = password;
 	}
 	
-	public Group getGroup() {
-		return this.group;
-	}
 	
-	public void setGroup(Group group) {
-		this.group = group;
+
+
+	public String getRole() {
+		return role;
+	}
+
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+
+	public Collection<Job> getJobs() {
+		return jobs;
 	}
 	
 
