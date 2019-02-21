@@ -181,66 +181,87 @@ public class CVE {
 
 
 	public void setIdCVE(String idCVE) {
+		Assert.notNull(idCVE, "idcve cannot be null");
+		Assert.hasText(idCVE, "idcve cannot be blank or empty");
 		this.idCVE = idCVE;
 	}
 
 
 
 	public void setBaseScoreV3(float baseScoreV3) {
+		Assert.isTrue(baseScoreV3>=0, "A base score cannot be negative");
+		Assert.notNull(baseScoreV3, "baseScoreV3 cannot be null");
 		this.baseScoreV3 = baseScoreV3;
 	}
 
 
 
 	public void setImpactScoreV3(float impactScoreV3) {
+		Assert.isTrue(impactScoreV3>=0, "An impact score cannot be negative");
+		Assert.notNull(impactScoreV3, "baseScoreV3 cannot be null");
 		this.impactScoreV3 = impactScoreV3;
 	}
 
 
 
 	public void setVectorV3(String vectorV3) {
+		Assert.notNull(vectorV3, "vectorV3 cannot be null");
+		Assert.hasText(vectorV3, "vectorV3 cannot be empty or blanck");
 		this.vectorV3 = vectorV3;
 	}
 
 
 
 	public void setAttackVectorV3(String attackVectorV3) {
+		Assert.notNull(attackVectorV3, "vectorV3 cannot be null");
+		Assert.hasText(attackVectorV3, "vectorV3 cannot be empty or blanck");
 		this.attackVectorV3 = attackVectorV3;
 	}
 
 
 
 	public void setBaseScoreV2(float baseScoreV2) {
+		Assert.isTrue(baseScoreV2>=0, "An base score cannot be negative");
+		Assert.notNull(baseScoreV2, "baseScoreV cannot be null");
 		this.baseScoreV2 = baseScoreV2;
 	}
 
 
 
 	public void setImpactScoreV2(float impactScoreV2) {
+		Assert.isTrue(impactScoreV2>=0, "An impact score cannot be negative");
+		Assert.notNull(impactScoreV2, "impactScore cannot be null");
 		this.impactScoreV2 = impactScoreV2;
 	}
 
 
 
 	public void setVectorv2(String vectorv2) {
+		Assert.notNull(vectorv2, "vectorV2cannot be null");
+		Assert.hasText(vectorv2, "vectorV3 cannot be empty or blanck");
 		this.vectorv2 = vectorv2;
 	}
 
 
 
 	public void setAttackvectorV2(String attackvectorV2) {
+		Assert.notNull(attackvectorV2, "vectorV3 cannot be null");
+		Assert.hasText(attackvectorV2, "vectorV3 cannot be empty or blanck");
 		this.attackvectorV2 = attackvectorV2;
 	}
 
 
 
 	public void setDescCVE(String descCVE) {
+		Assert.notNull(descCVE, "vectorV3 cannot be null");
+		Assert.hasText(descCVE, "vectorV3 cannot be empty or blanck");
 		this.descCVE = descCVE;
 	}
 
 
 
 	public void setService(Service service) {
+		Assert.notNull(service, "A service cannot be null");
 		this.service = service;
 	}
 	

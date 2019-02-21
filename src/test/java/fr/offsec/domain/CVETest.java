@@ -17,63 +17,99 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 
 public class CVETest {
+	
+	CVE cvetest  = new CVE("cvetest", 2.0f, 3.0f, 4.0f, 5.0f, "vector 2", "vector 3", "attackvector2", "attackVector3", "a cve test description", new Service());
 
-/*	@Test(expected = IllegalArgumentException.class)
-	public void shouldNotCreateWithNullID() {
-		
-		new CVE(null, 9.8f, "CVE test for Junit test");
-	}
-	
 	@Test(expected = IllegalArgumentException.class)
-	public void shouldNOtCreateWithEmptyID()
-	{
-		new CVE("",9.8f,"CVE test for Junit test");
+	public void shouldNotCreateWithNullId() {
+		new CVE(null, 3f, 4f, 3f, 4f, "prout", "pourt", "prouti", "prouta","proutu", new Service());
 	}
-	
+	@Test(expected = IllegalArgumentException.class)
+	public void shouldNotCreateWithEmptyId() {
+		new CVE("", 3f, 4f, 3f, 4f, "prout", "pourt", "prouti", "prouta","proutu", new Service());
+	}
 	@Test(expected = IllegalArgumentException.class)
 	public void shouldNotCreateWithBlankID() {
-		new CVE(" ",9.8f,"CVE test for Junit Test");
-	}
-	
-	@Test(expected = IllegalArgumentException.class)
-	public void shouoldNOtCreateWithNullNote() {
-		new CVE("CVE_2015_98",0,"CVE test for Junit test");
-	}
-	@Test(expected = IllegalArgumentException.class)
-	public void shouldNotCreateWithNullDescription() {
-		new CVE("CVE_2015_98",9.8f,null);
+		new CVE(" ", 3f, 4f, 3f, 4f, "prout", "pourt", "prouti", "prouta","proutu", new Service());
 		
 	}
 	@Test(expected = IllegalArgumentException.class)
-	public void shouldNOtCreateWithEmptyDescription() {
-		new CVE("CVE_2015_ID25",9.8f,"");
+	public void shouldNotCreateWIthNullBScore1() {
+		new CVE("coucou_test_cve", 0f, 4f, 3f, 4f, "prout", "pourt", "prouti", "prouta","proutu", new Service());
+	}
+	@Test(expected = IllegalArgumentException.class)
+	public void shouldNotCreateWIthNullBScore2() {
+		new CVE("coucou_test_cve", 3f, 0f, 3f, 4f, "prout", "pourt", "prouti", "prouta","proutu", new Service());
+	}
+	@Test(expected = IllegalArgumentException.class)
+	public void shouldNotCreateWIthNullIScore1() {
+		float c = 0f;
+		new CVE("coucou_test_cve", 4f, 4f, c , 4f, "prout", "pourt", "prouti", "prouta","proutu", new Service());
+	}
+	@Test(expected = IllegalArgumentException.class)
+	public void shouldNotCreateWIthNullIScore2() {
+		new CVE("coucou_test_cve", 3f, 4f, 3f, 0f, "prout", "pourt", "prouti", "prouta","proutu", new Service());
+	}
+	@Test(expected = IllegalArgumentException.class)
+	public void shouldNotCreateWIthNullDescription() {
+		new CVE("coucou_test_cve", 3f, 4f, 3f, 4f, "prout", "pourt", "prouti", "prouta",null, new Service());
 	}
 	@Test(expected = IllegalArgumentException.class)
 	public void shouldNotCreateWithBlankDescription() {
-		new CVE("CVE_2015_ID25",9.8f," ");
+		new CVE("coucou_test_cve", 3f, 4f, 3f, 4f, "prout", "pourt", "prouti", "prouta"," ", new Service());
+	}
+	@Test(expected = IllegalArgumentException.class)
+	public void shouldNotCreateWithEmptyDescription() {
+		new CVE("coucou_test_cve", 3f, 4f, 3f, 4f, "prout", "pourt", "prouti", "prouta","", new Service());
+	}
+	@Test
+	public void shouldReturnValidCve() {
+		new CVE("coucou_test_cve", 3f, 4f, 3f, 4f, "prout", "pourt", "prouti", "prouta","descr", new Service());
+	}
+	@Test
+	public void shouldUpdateBScoreV2() {
+		cvetest.setBaseScoreV2(4.5f);
+		assertThat(cvetest.getBaseScoreV2()).isEqualTo(4.5f);
+		
+	}
+	@Test
+	public void shouldUpdateBScoreV3() {
+		cvetest.setBaseScoreV3(4.5f);
+		assertThat(cvetest.getBaseScoreV3()).isEqualTo(4.5f);
+		
+	}
+	@Test
+	public void shouldUpdateIScoreV2() {
+		cvetest.setImpactScoreV2(4.5f);
+		assertThat(cvetest.getImpactScoreV2()).isEqualTo(4.5f);
+		
+	}
+	@Test
+	public void shouldUpdateIScoreV3() {
+		cvetest.setImpactScoreV3(4.5f);
+		assertThat(cvetest.getImpactScoreV3()).isEqualTo(4.5f);		
+	}
+	@Test
+	public void shouldUpdatevector() {
+		cvetest.setVectorv2("testvector2");
+		cvetest.setVectorV3("testvector3");
+		cvetest.setAttackvectorV2("testAttackVector2");
+		cvetest.setAttackVectorV3("attackVector3");
+		cvetest.setDescCVE("prout prout descritpnio");
+		assertThat(cvetest.getVectorv2()).isEqualTo("testvector2");
+		assertThat(cvetest.getVectorV3()).isEqualTo("testvector3");
+		assertThat(cvetest.getAttackvectorV2()).isEqualTo("testAttackVector2");
+		assertThat(cvetest.getAttackVectorV3()).isEqualTo("attackVector3");
+		assertThat(cvetest.getDescCVE()).isEqualTo("prout prout descritpnio");
+		
 	}
 	
-	@Test
-	public void shouldUpdateAis() {
-		
-		CVE cve = new CVE("CVE_2015_98",9.8f,"CVE test for Junit test");
-		cve.setAis(4.5f);
-		assertThat(cve.getAis()).isEqualTo(4.5f);
-		
-	}
-	@Test
-	public void shouldSetIDCVE() {
-		CVE cve = new CVE("CVE_2015_98",9.8f,"CVE test for Junit test");
-		cve.setIDCVE("CVE_2015_ID8");
-		assertThat(cve.getIdCVE()).isEqualTo("CVE_2015_ID8");
-		
-	}
-	@Test
-	public void shoudSetDescription() {
-		CVE cve = new CVE("CVE_2015_98",9.8f,"CVE test for Junit test");
-		cve.setDescr("A new descritpnio text for this cve test");
-		assertThat(cve.getDescr()).isEqualTo("A new descritpnio text for this cve test");
-	}
+
+	/*
+	
+
+	
+
 	
 	@Test
 	public void shouldSerialize() throws JsonProcessingException {
