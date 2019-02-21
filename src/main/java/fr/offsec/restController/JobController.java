@@ -138,7 +138,7 @@ public class JobController {
 	//PostMapping to get the result of an ordered job
 	//It's not the Postmapping for add a new job
 	@PostMapping()
-	public ResponseEntity<Void> createFinal(@RequestBody JobDTO dto, UriComponentsBuilder ucb, Principal principal){
+	public ResponseEntity<Void> createResult(@RequestBody JobDTO dto, UriComponentsBuilder ucb, Principal principal){
 		
 		Assert.notNull(dto,"A dto cannot be null");
 		Job job = new Job(dto.getIdJob(), dto.getNameJob(), dto.getDescrJob(), dto.getStatusJob(), dto.getStartedAt(), dto.getEndAt());
