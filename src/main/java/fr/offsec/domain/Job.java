@@ -18,6 +18,7 @@ import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
+import org.springframework.util.Assert;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -73,6 +74,15 @@ public class Job {
 				@JsonProperty("status_job")String status,
 				@JsonProperty("started_at_job")LocalDateTime startDate,
 				@JsonProperty("end_at_job")LocalDateTime endDate) {
+		Assert.notNull(id,"id cannot be null");
+		Assert.notNull(name,"name cannot be null");
+		Assert.notNull(descr,"description cannot be null");
+		Assert.notNull(status,"status cannot be null");
+		Assert.notNull(startDate,"starting date canniot be null");
+		Assert.notNull(endDate,"Ending date cannot be null");
+		Assert.hasText(name, "name cannot be blank or empty");;
+		Assert.hasText(descr, "description cannot be blank or empty");
+		Assert.hasText(status, "status cannoty be blank or empty");
 		
 		this.idJob = id;
 		this.nameJob = name;
@@ -86,7 +96,11 @@ public class Job {
 		return idJob;
 	}
 	public void setIdJob(Long idJob) {
-		this.idJob = idJob;
+		Assert.notNull(idJob, "idJob cannot be null");
+		if (idJob != 0) {
+			this.idJob = idJob;
+		}
+		
 	}
 	
 	public Collection<Host> getHost(){
@@ -111,30 +125,39 @@ public class Job {
 		return nameJob;
 	}
 	public void setNameJob(String nameJob) {
+		Assert.notNull(nameJob,"nameJob cannot be null");
+		Assert.hasText(nameJob, "NameJob cannot be empty or blank");
 		this.nameJob = nameJob;
 	}
 	public String getDescrJob() {
 		return descrJob;
 	}
 	public void setDescrJob(String descrJob) {
+		Assert.notNull(descrJob,"desvcription cannot be null");
+		Assert.hasText(descrJob, "descrioption cannot be empty or blank");
 		this.descrJob = descrJob;
 	}
 	public String getStatusJob() {
 		return statusJob;
 	}
 	public void setStatusJob(String statusJob) {
+		Assert.notNull(statusJob,"status cannot be null");
+		Assert.hasText(statusJob, "status cannot be empty or blank");
 		this.statusJob = statusJob;
 	}
 	public LocalDateTime getStartedAt() {
 		return startedAt;
 	}
 	public void setStartedAt(LocalDateTime startedAt) {
+		Assert.notNull(startedAt,"starting date cannot be null");
+		
 		this.startedAt = startedAt;
 	}
 	public LocalDateTime getEndAt() {
 		return endAt;
 	}
 	public void setEndAt(LocalDateTime endAt) {
+		Assert.notNull(endAt,"ending Date cannot be null");
 		this.endAt = endAt;
 	}
 	

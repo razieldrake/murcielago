@@ -29,14 +29,8 @@ public class UserRestController {
 		return ResponseEntity.ok(userService.findUserByID(idUser).getJobs());
 	}
 	
-	@GetMapping("/admin/getall")
-	public ResponseEntity<Iterable<User>> getAll(){		
-		return ResponseEntity.ok(userService.getAll());
-	}
 	
-	@GetMapping(params="{idUser}")
-	public ResponseEntity<Job> getOneByID(@RequestParam(name = "idJob")Long idJob){
-		return ResponseEntity.ok(jobService.findByID(idJob));
-	}
+	
+	
 
 }

@@ -61,7 +61,7 @@ public class JobController {
 		return ResponseEntity.ok(jobService.findByID(idJob));
 	}
 	
-	@GetMapping("/{idJob}/ports")
+	@GetMapping("/{idJob}/hosts")
 	public ResponseEntity<Collection<Host>> getHostForJob(@PathVariable("idJob")Long idJob){
 		Job job = jobService.findByID(idJob);
 		return ResponseEntity.ok(job.getHost());

@@ -14,6 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.springframework.util.Assert;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -58,6 +60,13 @@ public class User {
 				@JsonProperty("username")String user,
 				@JsonProperty("password")String pwd,
 				@JsonProperty("role")String role) {
+		Assert.notNull(id,"id cannot be null");
+		Assert.notNull(user,"username cannot be null");
+		Assert.notNull(pwd,"password cannot be null");
+		Assert.notNull(role,"roles cannot be null");
+		Assert.hasText(user,"username cannot be empty or blank");
+		Assert.hasText(pwd,"password cannot be empty or blank");
+		Assert.hasText(role,"role cannot be empty or blank");
 		
 		this.idUser = id;
 		this.username = user;
@@ -78,18 +87,23 @@ public class User {
 		return idUser;
 	}
 	public void setIdUser(Long idUser) {
+		Assert.notNull(idUser,"idUser cannot be null");
 		this.idUser = idUser;
 	}
 	public String getUsername() {
 		return username;
 	}
 	public void setUsername(String username) {
+		Assert.notNull(username,"username cannot be null");
+		Assert.hasText(username, "username cannot be empty or blank");
 		this.username = username;
 	}
 	public String getPassword() {
 		return password;
 	}
 	public void setPassword(String password) {
+		Assert.notNull(password,"password cannot be null");
+		Assert.hasText(password, "password cannot be empty or blank");
 		this.password = password;
 	}
 	
@@ -102,6 +116,8 @@ public class User {
 
 
 	public void setRole(String role) {
+		Assert.notNull(role,"role cannot be null");
+		Assert.hasText(role, "role cannot be empty or blank");
 		this.role = role;
 	}
 

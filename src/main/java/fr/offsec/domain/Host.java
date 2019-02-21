@@ -15,6 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.springframework.util.Assert;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -59,6 +61,13 @@ public class Host {
 				@JsonProperty("ip_host")String ip,
 				@JsonProperty("os_host")String os,
 				@JsonProperty("new_host")boolean isNewly) {
+		Assert.notNull(id,"id cannot be null");
+		Assert.notNull(ip,"ip cannot be null");
+		Assert.notNull(os,"os cannot be null");
+		Assert.notNull(isNewly,"isNeworNot cannot be null");
+		Assert.hasText(ip, "ip canot be blanck or empty");
+		Assert.hasText(os, "os canot be blanck or empty");
+		
 		
 		this.id = id;
 		this.ipHost = ip;
@@ -73,6 +82,7 @@ public class Host {
 		return this.ports;
 	}
 	public void setPortsOnHost(Collection<Port>ports) {
+		
 		if (ports!=null) {
 			this.ports = ports;
 		}
@@ -87,18 +97,23 @@ public class Host {
 		return ipHost;
 	}
 	public void setIpHost(String ipHost) {
+		Assert.notNull(ipHost,"id cannot be null");
+		Assert.hasText(ipHost,"ipHost cannot be null");
 		this.ipHost = ipHost;
 	}
 	public String getOsHost() {
 		return osHost;
 	}
 	public void setOsHost(String osHost) {
+		Assert.notNull(osHost,"osHost cannot be null");
+		Assert.hasText(osHost,"osHost cannot be null");
 		this.osHost = osHost;
 	}
 	public boolean isNew() {
 		return isNew;
 	}
 	public void setNew(boolean isNew) {
+		Assert.notNull(isNew, "Isnew or not cannot be null");
 		this.isNew = isNew;
 	}
 	public Long getId() {
@@ -110,10 +125,12 @@ public class Host {
 	}
 
 	public void setId(Long id) {
+		Assert.notNull(id, "id cannot be null");
 		this.id = id;
 	}
 
 	public void setPorts(Collection<Port> ports) {
+		Assert.notNull(ports, "ports collection cannot be null");
 		this.ports = ports;
 	}
 }
