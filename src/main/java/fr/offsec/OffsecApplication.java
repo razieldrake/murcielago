@@ -3,6 +3,7 @@ package fr.offsec;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
@@ -20,6 +21,12 @@ public class OffsecApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(OffsecApplication.class, args);
+		System.out.println("********************************************");
+		System.out.println("********************************************");
+		System.out.println(new BCryptPasswordEncoder().encode("lolilol"));
+		System.out.println("********************************************");
+		System.out.println("********************************************");
+		System.out.println("************** -DEBUG- *****************");
 	}
 	
 	public class SwaggerConfig {                                    
