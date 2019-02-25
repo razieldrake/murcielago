@@ -61,12 +61,12 @@ public class Host {
 				@JsonProperty("ip_host")String ip,
 				@JsonProperty("os_host")String os,
 				@JsonProperty("new_host")boolean isNewly) {
-		Assert.notNull(id,"id cannot be null");
+	/*	Assert.notNull(id,"id cannot be null");
 		Assert.notNull(ip,"ip cannot be null");
 		Assert.notNull(os,"os cannot be null");
 		Assert.notNull(isNewly,"isNeworNot cannot be null");
 		Assert.hasText(ip, "ip canot be blanck or empty");
-		Assert.hasText(os, "os canot be blanck or empty");
+		Assert.hasText(os, "os canot be blanck or empty");*/
 		
 		
 		this.id = id;

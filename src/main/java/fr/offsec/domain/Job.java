@@ -74,7 +74,7 @@ public class Job {
 				@JsonProperty("status_job")String status,
 				@JsonProperty("started_at_job")LocalDateTime startDate,
 				@JsonProperty("end_at_job")LocalDateTime endDate) {
-		Assert.notNull(id,"id cannot be null");
+		/*Assert.notNull(id,"id cannot be null");
 		Assert.notNull(name,"name cannot be null");
 		Assert.notNull(descr,"description cannot be null");
 		Assert.notNull(status,"status cannot be null");
@@ -82,7 +82,7 @@ public class Job {
 		Assert.notNull(endDate,"Ending date cannot be null");
 		Assert.hasText(name, "name cannot be blank or empty");;
 		Assert.hasText(descr, "description cannot be blank or empty");
-		Assert.hasText(status, "status cannoty be blank or empty");
+		Assert.hasText(status, "status cannoty be blank or empty");*/
 		
 		this.idJob = id;
 		this.nameJob = name;
@@ -134,7 +134,7 @@ public class Job {
 	}
 	public void setDescrJob(String descrJob) {
 		Assert.notNull(descrJob,"desvcription cannot be null");
-		Assert.hasText(descrJob, "descrioption cannot be empty or blank");
+	//	Assert.hasText(descrJob, "descrioption cannot be empty or blank");
 		this.descrJob = descrJob;
 	}
 	public String getStatusJob() {
