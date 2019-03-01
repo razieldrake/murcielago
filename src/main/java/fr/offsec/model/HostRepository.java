@@ -13,9 +13,9 @@ import fr.offsec.domain.Service;
 @Repository
 public interface HostRepository extends CrudRepository<Host, Long> {
 	
-	Iterable<Host> findAllByIpHost(String ipaddr);
+	Iterable<Host> findAllByIp(String ipaddr);
 	//Host findOneByIP(Inet4Address ipaddr);
-	Iterable<Host> findAllByOsHost(String os);
+	Iterable<Host> findAllByOperationSystem(String os);
 	
 	
 	

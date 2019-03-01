@@ -26,7 +26,7 @@ public class OffsecApplication {
 		System.out.println(new BCryptPasswordEncoder().encode("lolilol"));
 		System.out.println("********************************************");
 		System.out.println("********************************************");
-		System.out.println("************** -DEBUG- *****************");
+		System.out.println("************** -DEBUG- *********************");
 	}
 	
 	public class SwaggerConfig {                                    

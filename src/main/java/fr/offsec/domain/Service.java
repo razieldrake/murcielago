@@ -70,13 +70,13 @@ public class Service {
 				   @JsonProperty("version_service")String version,
 				   @JsonProperty("guessed_os_service")String os) {
 		
-		Assert.notNull(id,"id cannot be null");
+		/*Assert.notNull(id,"id cannot be null");
 		Assert.notNull(name,"name cannot be null");
 		Assert.hasText(name, "name cannot be empty or blanck");
 		Assert.notNull(version,"version cannot be null");
 		Assert.hasText(version,"version cannot be empty or blanck");
 		Assert.notNull(os, "os cannot be null");
-		Assert.hasText(os,"os cannot be empty or blanck");
+		Assert.hasText(os,"os cannot be empty or blanck");*/
 		
 		this.idService = id;
 		this.nameService = name;

@@ -52,8 +52,8 @@ public class HostTest {
 	
 	@Test()
 	public void shouldUpdateOs() {
-		hostTest.setOsHost("WindaubeX");
-		assertThat(hostTest.getOsHost()).isEqualTo("WindaubeX");
+		hostTest.setOperationSystem("WindaubeX");
+		assertThat(hostTest.getOperationSystem()).isEqualTo("WindaubeX");
 		
 	}
 	

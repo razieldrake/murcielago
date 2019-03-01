@@ -33,13 +33,11 @@ public class Host {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	
+	@JsonProperty
+	private String ip;
 	
 	@JsonProperty
-	private String ipHost;
-	
-	@JsonProperty
-	private String osHost;
+	private String operationSystem;
 	
 	@JsonProperty
 	private boolean isNew; // Triggered is the IP has never been discovered by an anterior scan
@@ -70,8 +68,8 @@ public class Host {
 		
 		
 		this.id = id;
-		this.ipHost = ip;
-		this.osHost = os;
+		this.ip = ip;
+		this.operationSystem = os;
 		this.isNew = isNewly;
 	}
 	
@@ -94,20 +92,20 @@ public class Host {
 		}
 	}
 	public String getIpHost() {
-		return ipHost;
+		return ip;
 	}
 	public void setIpHost(String ipHost) {
 		Assert.notNull(ipHost,"id cannot be null");
 		Assert.hasText(ipHost,"ipHost cannot be null");
-		this.ipHost = ipHost;
+		this.ip = ipHost;
 	}
-	public String getOsHost() {
-		return osHost;
+	public String getOperationSystem() {
+		return operationSystem;
 	}
-	public void setOsHost(String osHost) {
+	public void setOperationSystem(String osHost) {
 		Assert.notNull(osHost,"osHost cannot be null");
 		Assert.hasText(osHost,"osHost cannot be null");
-		this.osHost = osHost;
+		this.operationSystem = osHost;
 	}
 	public boolean isNew() {
 		return isNew;

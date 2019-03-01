@@ -93,21 +93,28 @@ public class CVE {
 	}
 	@JsonCreator
 	public CVE (@JsonProperty("id_cve") String id,@JsonProperty("base_score_v2")float bScoreV2,
-				@JsonProperty("base_score_v3") float bScoreV3,@JsonProperty("impact_score_v2")float iScoreV2,
-				@JsonProperty("impact_score_v3")float iScoreV3,@JsonProperty("vector_v2")String vector2,
-				@JsonProperty("vector_v3")String vector3,@JsonProperty("attack_vector_v2")String attackVector2,
-				@JsonProperty("attack_vector_v3")String attackVector3,@JsonProperty("desc_cve") String descr,
+				@JsonProperty("impact_score_v2")float iScoreV2,
+				@JsonProperty("vector_v2")String vector2,
+				@JsonProperty("attack_vector_v2")String attackVector2,
+				@JsonProperty("desc_cve") String descr,
 				@JsonProperty("service_id")Service service
 				) {
-		Assert.hasText(id, "id cannot be blank");
+		/*Assert.hasText(id, "id cannot be blank");
 		Assert.notNull(id,"id cannot be null");
 		Assert.notNull(descr,"description cannot be null");
-		Assert.hasText(descr,"A description cve cannot be empty or blank, please fill the fields");
+		Assert.hasText(descr,"A description cve cannot be empty or blank, please fill the fields");*/
 		
-		this.idCVE = id;						this.attackvectorV2 = attackVector2;	this.baseScoreV3 = bScoreV3;
-		this.attackVectorV3 = attackVector3;	this.baseScoreV2 = bScoreV2;			this.impactScoreV2 = iScoreV2;
-		this.descCVE = descr;					this.impactScoreV3 = iScoreV3;			this.vectorv2 = vector2;
-		this.vectorV3 = vector3;				this.service = service;		
+		this.idCVE = id;						
+		this.attackvectorV2 = attackVector2;	
+//		this.baseScoreV3 = bScoreV3;
+//		this.attackVectorV3 = attackVector3;	
+		this.baseScoreV2 = bScoreV2;			
+		this.impactScoreV2 = iScoreV2;
+		this.descCVE = descr;					
+//		this.impactScoreV3 = iScoreV3;			
+		this.vectorv2 = vector2;
+//		this.vectorV3 = vector3;				
+		this.service = service;		
 				
 				
 	}

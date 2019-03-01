@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import fr.offsec.domain.CVE;
 import fr.offsec.domain.Port;
@@ -13,14 +14,17 @@ public class ServiceDTO {
 
 	private Long idService;
 	
+	@JsonProperty("product")
 	private String nameService;
 	
+	@JsonProperty("version")
 	private String versionService;
 	
 	private Port portService;
 	
 	private String osService;
 	
+	@JsonProperty("CVE")
 	private CVEDTO[] cvesService;
 
 	public Long getIdService() {

@@ -1,5 +1,17 @@
 package fr.offsec.restController;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.auth.AuthenticationException;
+import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.auth.BasicScheme;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.impl.client.LaxRedirectStrategy;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -10,10 +22,13 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URI;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.security.Principal;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -41,13 +56,16 @@ import fr.offsec.domain.Host;
 import fr.offsec.domain.Job;
 import fr.offsec.domain.Port;
 import fr.offsec.domain.Service;
+import fr.offsec.domain.User;
 import fr.offsec.dto.CVEDTO;
 import fr.offsec.dto.HostDTO;
+import fr.offsec.dto.HostsDTO;
 import fr.offsec.dto.JobDTO;
 import fr.offsec.dto.PortDTO;
 import fr.offsec.dto.ServiceDTO;
 import fr.offsec.service.HostService;
 import fr.offsec.service.JobService;
+import fr.offsec.service.UserService;
 import springfox.documentation.spring.web.json.Json;
 
 @RestController
@@ -59,6 +77,9 @@ public class JobController {
 	
 	@Autowired
 	HostService hostService;
+	
+	@Autowired
+	UserService userService;
 	
 	
 	@GetMapping()
@@ -81,6 +102,11 @@ public class JobController {
 	@PostMapping("/order")
 	public ResponseEntity<Void> jobi(@RequestParam(name="target")String target,@RequestParam(name="ports")String port){
 		
+		/**
+		 * INstanviation of a new Job
+		 */
+		
+		Job job = new Job(new Random().nextLong(), "scan", "scan a list of port in a ip list", "sending", LocalDateTime.now(),LocalDateTime.now());
 		
 		String PARAMJSON = "{\n"+"\"ip\":\"" +target+ "\",\"port\":\""+port+"\",\"parstype\":\"2\"}";
 		String PARAMURL = "?ip="+target+"&port="+port+"&rate=5&parstype=2";
@@ -88,153 +114,40 @@ public class JobController {
 		System.out.println(PARAMURL);
 		
 		try {
-			URL anotherurl = new URL("http://192.168.0.20:8000/scan"+PARAMURL);
+			URL anotherurl = new URL("http://192.168.1.64:8000/scan"+PARAMURL);
 			RestTemplate rest =  new RestTemplate();
-			HostDTO result = rest.getForObject("http://192.168.0.20:8000/scan"+PARAMURL, HostDTO.class);
-			System.out.println(result.getIdHost()+result.getIpHost()+" has been found with "+result.getOsHost());
-		} catch (MalformedURLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
-		 return ResponseEntity.accepted().build();
-		
-		/*try {
-			URL url = new URL("http://192.168.0.20:8000/scan"+PARAMURL);
-			StringBuilder result = new StringBuilder();
-			HttpURLConnection con = (HttpURLConnection) url.openConnection();
-			con.setRequestMethod("GET");
-			Map<String, String> parameters = new HashMap<>();
-			parameters.put("id", "192.168.0.21");
-			parameters.put("port", "80");
-			parameters.put("rate","5");
-			parameters.put("parstype","2");
-			con.setDoOutput(true);
-			BufferedReader rd = new BufferedReader(new InputStreamReader(con.getInputStream()));
-		      String line;
-		      while ((line = rd.readLine()) != null) {
-		         result.append(line);
-		      }
-		      rd.close();
-		      
-		      System.out.println(result.toString());
-		      
-		     
-		      
-		      return ResponseEntity.accepted().build();
-		   
-			
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return ResponseEntity.badRequest().build();
-		}*/
-		
-	}
-	
-	@PostMapping("/scan/order")
-	public ResponseEntity<Void> runJob(@RequestParam(name="target")String target,@RequestParam(name="ports")String port){
-		
-		
-		String PARAMJSON = "{\n"+"\"ip\":\"" +target+ "\",\"port\":\""+port+"\",\"parstype\":\"2\"}";
-		String PARAMURL = "?ip="+target+"&port="+port+"&rate=5&parstype=2";
-		System.out.println(PARAMJSON);
-		System.out.println(PARAMURL);
-		
-			URL obj = null;
-			try {
-				obj = new URL("http://192.168.0.20:8000/scan"+PARAMURL);
-			} catch (MalformedURLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				System.out.println("failed");
-			}
-			HttpURLConnection postConnection = null;
-			try {
+			HostsDTO results = rest.getForObject("http://192.168.1.64:8000/scan"+PARAMURL, HostsDTO.class);
+			for (HostDTO result : results.getHost() ) {
 				
-				postConnection = (HttpURLConnection) obj.openConnection();
-				postConnection.setRequestMethod("GET");
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				System.out.println("failed");
-			}
-		
-		
-	
-			
-		    try {
-				postConnection.setRequestMethod("GET");
-			} catch (ProtocolException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				System.out.println("failed");
-			}
-		    postConnection.setRequestProperty("User-Agent", "JAVA client");
-		    postConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-		    postConnection.setDoOutput(true);
-			try{DataOutputStream output = null;
-			try {
-				postConnection.setRequestMethod("GET");
-				output = new DataOutputStream(postConnection.getOutputStream());
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				System.out.println("failed");
-			}
-		    try {
-				output.writeBytes(PARAMURL);
-				output.flush();
-				output.close();
-				int responseCode = postConnection.getResponseCode();
-				System.out.println("\nSending "+postConnection.getRequestMethod()+" request to URL : " + obj);
-				System.out.println("Post parameters : " + PARAMURL);
-				System.out.println("Response Code : " + responseCode);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				System.out.println("failed");
-			}finally{}
-			
-			}finally{
-			postConnection.disconnect();
-		}
-		return ResponseEntity.accepted().build();
-	}
-
-	//PostMapping to get the result of an ordered job
-	//It's not the Postmapping for add a new job
-	@PostMapping("/debug")
-	public ResponseEntity<Void> savecreateResult(@RequestBody JobDTO dto, UriComponentsBuilder ucb, Principal principal){
-		
-		Assert.notNull(dto,"A dto cannot be null");
-		Job job = new Job(dto.getIdJob(), dto.getNameJob(), dto.getDescrJob(), dto.getStatusJob(), dto.getStartedAt(), dto.getEndAt());
-		if (dto.getHostList()!=null) {
-			for (HostDTO h : dto.getHostList()) {
-				
-				Host host = new Host(h.getIdHost(), h.getIpHost(), h.getIpHost(), h.isNew());
+				Host host = new Host(new Random().nextLong(), result.getIpHost(), result.getOperationSystem(), true);
 				job.getHost().add(host);
 				host.setJob(job);
-				if(h.getPorts()!=null) {
-					for (PortDTO p : h.getPorts()) {
-						
-						Port port = new Port(p.getIdPort(),p.getProtocol(),p.getStatus());
-						host.getPorts().add(port);
-						port.setHost(host);
-						if(p.getServiceRunningOnPort()!=null) {
-							System.out.println("there's services running on the port");
-							for (ServiceDTO s : p.getServiceRunningOnPort()) {
-								
-								Service service = new Service(new Random().nextLong(), s.getNameService(), s.getVersionService(), s.getOsService());
-								port.getServiceRunningOnPort().add(service);
-								service.setPort(port);
-								if (s.getCvesService()!=null) {
-									System.out.println("there's cves on the services running on the port");
-									for (CVEDTO c : s.getCvesService()) {
-										
-										CVE cve = new CVE(c.getIdCVE(), c.getBaseScoreV2(), c.getBaseScoreV3(), c.getImpactScoreV2(), c.getImpactScoreV3(), c.getVectorV2(), c.getVectorV3(), c.getAttackVectorV2(), c.getAttackVectorV3(), c.getDescription(), service);
-										service.getCVEForService().add(cve);
+				System.out.println(result.getIpHost()+" has been found with "+result.getOperationSystem());
+				if (result.getPorts()!=null) {
+					System.out.println("The host has ports informations");
+					for (PortDTO portdto : result.getPorts() ) {					
+						Port po = new Port(portdto.getIdPort(), portdto.getStatus(),portdto.getProtocol());
+						host.getPorts().add(po);
+						po.setHost(host);
+						System.out.println(portdto.getIdPort() + "on protocol : "+ portdto.getProtocol());
+						if (portdto.getServiceRunningOnPort()!=null) {
+							System.out.println("there s services running on port");
+							for (ServiceDTO sdto : portdto.getServiceRunningOnPort()) {
+								Service serv = new Service(new Random().nextLong(), sdto.getNameService(), sdto.getVersionService(), "testFieldOsInService");
+								po.getServiceRunningOnPort().add(serv);
+								serv.setPort(po);
+								if(sdto.getCvesService()!=null) {
+									System.out.println("there's cve working on service");
+									for (CVEDTO cvedto : sdto.getCvesService()) {
+										CVE cve = new CVE(cvedto.getIdCVE(),
+														  cvedto.getBaseScore(),
+														  cvedto.getImpactScore(),
+														  cvedto.getVector(),
+														  cvedto.getAttackVector(),
+														  cvedto.getDescription(),
+														  serv);
+										serv.getCVEForService().add(cve);
+										cve.setService(serv);
 									}
 								}
 							}
@@ -242,12 +155,135 @@ public class JobController {
 					}
 				}
 			}
+			
+		} catch (MalformedURLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
-		Job savedJob = jobService.save(job);
-		URI location = ucb.path("/jobs/{idJob}").buildAndExpand(savedJob.getIdJob()).toUri();
-		return ResponseEntity.created(location).build();
+		
+
+		 return ResponseEntity.accepted().build();
+
+		
 	}
-	
+	/**
+	 * scan ip from the Yegor version, fonctionnal but i don' t want to implemented as mine
+	 * @param ip
+	 * @param port
+	 * @param rate
+	 * @param parsetype
+	 * @param jobName
+	 * @param jobDescribe
+	 * @param principal
+	 * @throws IOException
+	 * @throws AuthenticationException
+	 */
+//	@GetMapping("/scan")
+//    public void ScanPyScript(
+//            @RequestParam String ip, @RequestParam String port,
+//            @RequestParam int rate, @RequestParam int parsetype,
+//            @RequestParam String jobName, @RequestParam String jobDescribe,Principal principal) throws IOException, AuthenticationException {
+//            String ip_py="192.168.1.64";
+//            principal = new Principal() {
+//				
+//				@Override
+//				public String getName() {
+//					// TODO Auto-generated method stub
+//					return "ann";
+//				}
+//			};
+//            System.out.println(principal.getName());
+//        String url = "http://"+ ip_py +":8000/scan?ip="+ URLEncoder.encode(ip, "UTF-8") +"&port=" + port.replaceAll("\\s+","%2C") + "&rate=" + rate + "&parsetype=" + parsetype;
+//
+//        User user = userService.findUserByUsername(principal.getName());
+//        Job job = new Job(new Random().nextLong(), "scan", "scan a list of port in a ip list", "sending", LocalDateTime.now(),LocalDateTime.parse("running"));
+//        job.setUser(user);
+//        user.getJobs().add(job);
+//        jobService.save(job);
+//        
+//
+//        HttpClient client = HttpClientBuilder.create().build();
+//        HttpGet request = new HttpGet(url);
+//        request.addHeader("User-Agent", "USER_AGENT");
+//
+//        HttpResponse response = client.execute(request);
+//
+//
+//        //if ( response == null ) {
+//        job.setStatusJob("ERROR");
+//        job.setEndAt(LocalDateTime.now());
+//        jobService.save(job);
+//        //}
+//        // else {
+//        BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+//
+//        StringBuffer result = new StringBuffer();
+//        String line = "";
+//        while ((line = rd.readLine()) != null) {
+//            result.append(line);
+//            //}
+//
+//            job.setStatusJob("FINISHED");
+//            job.setEndAt(LocalDateTime.now());
+//            jobService.save(job);
+//            StringEntity entity = new StringEntity(result.toString(), ContentType.APPLICATION_JSON);
+//            HttpClient instance = HttpClientBuilder.create().setRedirectStrategy(new LaxRedirectStrategy()).build();
+//            HttpPost requestToHost = new HttpPost("http://localhost:8080/jobs/" + job.getIdJob());
+//            requestToHost.setEntity(entity);
+//
+//            UsernamePasswordCredentials creds = new UsernamePasswordCredentials(user.getUsername(), user.getPassword());
+//            requestToHost.addHeader(new BasicScheme().authenticate(creds, requestToHost, null));
+//            HttpResponse responseToHost = instance.execute(requestToHost);
+//        }
+//    }
+//
+//
+//
+//	//PostMapping to get the result of an ordered job
+//	//It's not the Postmapping for add a new job
+//	@PostMapping("/debug")
+//	public ResponseEntity<Void> savecreateResult(@RequestBody JobDTO dto, UriComponentsBuilder ucb, Principal principal){
+//		
+//		Assert.notNull(dto,"A dto cannot be null");
+//		Job job = new Job(dto.getIdJob(), dto.getNameJob(), dto.getDescrJob(), dto.getStatusJob(), dto.getStartedAt(), dto.getEndAt());
+//		if (dto.getHostList()!=null) {
+//			for (HostDTO h : dto.getHostList()) {
+//				
+//				Host host = new Host(h.getIdHost(), h.getIpHost(), h.getIpHost(), h.isNew());
+//				job.getHost().add(host);
+//				host.setJob(job);
+//				if(h.getPorts()!=null) {
+//					for (PortDTO p : h.getPorts()) {
+//						
+//						Port port = new Port(p.getIdPort(),p.getProtocol(),p.getStatus());
+//						host.getPorts().add(port);
+//						port.setHost(host);
+//						if(p.getServiceRunningOnPort()!=null) {
+//							System.out.println("there's services running on the port");
+//							for (ServiceDTO s : p.getServiceRunningOnPort()) {
+//								
+//								Service service = new Service(new Random().nextLong(), s.getNameService(), s.getVersionService(), s.getOsService());
+//								port.getServiceRunningOnPort().add(service);
+//								service.setPort(port);
+//								if (s.getCvesService()!=null) {
+//									System.out.println("there's cves on the services running on the port");
+//									for (CVEDTO c : s.getCvesService()) {
+//										
+//										CVE cve = new CVE(c.getIdCVE(), c.getBaseScoreV2(), c.getBaseScoreV3(), c.getImpactScoreV2(), c.getImpactScoreV3(), c.getVectorV2(), c.getVectorV3(), c.getAttackVectorV2(), c.getAttackVectorV3(), c.getDescription(), service);
+//										service.getCVEForService().add(cve);
+//									}
+//								}
+//							}
+//						}
+//					}
+//				}
+//			}
+//		}
+//		Job savedJob = jobService.save(job);
+//		URI location = ucb.path("/jobs/{idJob}").buildAndExpand(savedJob.getIdJob()).toUri();
+//		return ResponseEntity.created(location).build();
+//	}
+//	
 	
 	
 

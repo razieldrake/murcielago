@@ -36,7 +36,7 @@ public class HostService {
 		if (ipaddr== null) {
 			return null;
 		}
-		Iterable<Host> hosts = repo.findAllByIpHost(ipaddr);
+		Iterable<Host> hosts = repo.findAllByIp(ipaddr);
 		
 		if (hosts==null) {
 			return null;
@@ -44,12 +44,12 @@ public class HostService {
 		return hosts;
 		
 	}
-	Iterable<Host> findAllByOsHost(String os)
+	Iterable<Host> findAllByOperationSystem(String os)
 	{
 		if (os == null) {
 			return null;
 		}
-		Iterable<Host> hosts = repo.findAllByOsHost(os);
+		Iterable<Host> hosts = repo.findAllByOperationSystem(os);
 		if(hosts==null) {
 			return null;
 		}

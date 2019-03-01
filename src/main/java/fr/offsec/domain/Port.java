@@ -33,10 +33,12 @@ public class Port {
 	private int idPort;
 	
 	@JsonProperty
-	private String protocol;
+	private String status;
 	
 	@JsonProperty
-	private String status;
+	private String protocol;
+	
+	
 	
 
 	@JsonIgnoreProperties({"port"})
@@ -55,13 +57,13 @@ public class Port {
 	
 	@JsonCreator
 	public Port(@JsonProperty("id_port") int idport,
-				@JsonProperty("protocol_port")String protocol,
-				@JsonProperty("status_protocol")String status) {
-		Assert.notNull(idport,"id cannot be null");
+				@JsonProperty("status")String status,
+				@JsonProperty("protocol")String protocol) {
+		/*Assert.notNull(idport,"id cannot be null");
 		Assert.notNull(protocol,"id cannot be null");
 		Assert.notNull(status,"id cannot be null");
 		Assert.hasText(protocol, "protocol cannot be empty or blank");
-		Assert.hasText(status, "status cannot be empty or blank");
+		Assert.hasText(status, "status cannot be empty or blank");*/
 		this.idPort = idport;
 		this.protocol = protocol;
 		this.status = status;

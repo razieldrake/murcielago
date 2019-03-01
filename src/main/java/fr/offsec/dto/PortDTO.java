@@ -2,6 +2,7 @@ package fr.offsec.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import fr.offsec.domain.Host;
 import fr.offsec.domain.Service;
@@ -9,14 +10,18 @@ import fr.offsec.domain.Service;
 @JsonInclude(value=Include.NON_EMPTY)
 public class PortDTO {
 	
+	@JsonProperty("portnumber")
 	private int idPort;
 	
+	@JsonProperty("reason")
 	private String protocol;
 	
+	@JsonProperty("state")
 	private String status;
 	
 	private Host host;
 	
+	@JsonProperty("service")
 	private ServiceDTO[] servicesPort;
 
 	public int getIdPort() {
