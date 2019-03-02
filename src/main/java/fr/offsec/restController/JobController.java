@@ -100,23 +100,27 @@ public class JobController {
 	
 	
 	@PostMapping("/order")
-	public ResponseEntity<Void> jobi(@RequestParam(name="target")String target,@RequestParam(name="ports")String port){
+	public ResponseEntity<Void> jobi(@RequestParam(name="target")String target,@RequestParam(name="ports")String port,UriComponentsBuilder ucb){
 		
 		/**
 		 * INstanviation of a new Job
 		 */
 		
 		Job job = new Job(new Random().nextLong(), "scan", "scan a list of port in a ip list", "sending", LocalDateTime.now(),LocalDateTime.now());
-		
+		/**
+		 * Put the IP of the PYTHON API  in ipAPI
+		 */
+		String ipAPI = "192.168.0.25:8000";
 		String PARAMJSON = "{\n"+"\"ip\":\"" +target+ "\",\"port\":\""+port+"\",\"parstype\":\"2\"}";
 		String PARAMURL = "?ip="+target+"&port="+port+"&rate=5&parstype=2";
 		System.out.println(PARAMJSON);
 		System.out.println(PARAMURL);
 		
+		
 		try {
-			URL anotherurl = new URL("http://192.168.1.64:8000/scan"+PARAMURL);
+			URL anotherurl = new URL("http://"+ipAPI+"/scan"+PARAMURL);
 			RestTemplate rest =  new RestTemplate();
-			HostsDTO results = rest.getForObject("http://192.168.1.64:8000/scan"+PARAMURL, HostsDTO.class);
+			HostsDTO results = rest.getForObject("http://192.168.0.25:8000/scan"+PARAMURL, HostsDTO.class);
 			for (HostDTO result : results.getHost() ) {
 				
 				Host host = new Host(new Random().nextLong(), result.getIpHost(), result.getOperationSystem(), true);
@@ -162,7 +166,10 @@ public class JobController {
 		}
 		
 
-		 return ResponseEntity.accepted().build();
+		Job savedJob = jobService.save(job);
+		URI location = ucb.path("/jobs/{idJob}").buildAndExpand(savedJob.getIdJob()).toUri();
+		return ResponseEntity.created(location).build();
+		// return ResponseEntity.accepted().build();
 
 		
 	}

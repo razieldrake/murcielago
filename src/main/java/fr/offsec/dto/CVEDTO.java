@@ -31,7 +31,7 @@ import fr.offsec.domain.Service;
 @JsonInclude(value=Include.NON_EMPTY)
 public class CVEDTO {
 	
-	@JsonProperty("CVEID")
+	@JsonProperty("cveID")
 	private String idCVE;
 	@JsonProperty("impactScore")
 	private float impactScore;

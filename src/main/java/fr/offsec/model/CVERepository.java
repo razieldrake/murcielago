@@ -8,7 +8,7 @@ import fr.offsec.domain.CVE;
 @Repository
 public interface CVERepository extends CrudRepository<CVE, String> {
 	
-	//CVE findAllByI(String idCVE);
+	//CVE findOneByName(String idCVE);
 	
 	
 	

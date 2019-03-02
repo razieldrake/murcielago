@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Type;
 import org.springframework.util.Assert;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -80,6 +81,7 @@ public class CVE {
 	 */
 	
 	@JsonProperty
+	@Type(type="text")
 	private String descCVE;
 	
 	@JsonIgnore
