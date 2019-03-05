@@ -60,7 +60,6 @@ public class Job {
 	
 	
 	@ManyToOne(fetch = FetchType.LAZY, optional = true)
-//    @JoinColumn(name ="user_id", nullable = false)
 	@JsonIgnore
 	private User user;
 	
