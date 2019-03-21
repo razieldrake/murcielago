@@ -34,7 +34,7 @@ import io.jsonwebtoken.SignatureException;
 import fr.offsec.domain.User;
 import fr.offsec.security.Constants;
 
-@Component
+//@Component
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter{ //extends GenericFilterBean {
 	
 	@Autowired
@@ -75,6 +75,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             {
                 	System.out.println("Token null should enter here");
                 	System.out.println(httpServletRequest.getRequestURI());
+                //	((HttpServletResponse) servletResponse).setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                 	//((HttpServletResponse) servletResponse).sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid Authorization header.");
                 
                 	

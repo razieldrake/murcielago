@@ -23,6 +23,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -67,7 +68,19 @@ public class HomeRestController {
 		
 		System.out.println ("hello"+principal.getName());
 		User user = userService.findUserByUsername(principal.getName());
+		
 		return ResponseEntity.ok(user.getJobs());
+	}
+	
+	@GetMapping("/generatePDF/{idJob}")
+	public ResponseEntity<Job> getPDF(@PathVariable("idJob")Long idJob, Principal principal){
+		System.out.println(idJob);
+		if (idJob == null) {System.out.println("not an identifiers");return new ResponseEntity<Job>(HttpStatus.BAD_REQUEST);}
+		Job job = jobService.findByID(idJob);
+		if (job ==null) {System.out.println("didn't find the job");return new ResponseEntity<Job>(HttpStatus.BAD_REQUEST);}
+				
+	
+		return ResponseEntity.ok(job);
 	}
 	
 	@GetMapping("/admin")
