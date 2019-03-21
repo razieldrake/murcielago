@@ -14,6 +14,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.Assert;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -30,7 +33,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Entity
 @Table(name="User")
 @JsonInclude(value = Include.NON_DEFAULT)
-public class User {
+public class User implements UserDetails {
 	
 	@JsonProperty
 	@Id
@@ -111,19 +114,48 @@ public class User {
 
 
 	public String getRole() {
-		return role;
+		return this.role;
 	}
 
 
 	public void setRole(String role) {
 		Assert.notNull(role,"role cannot be null");
 		Assert.hasText(role, "role cannot be empty or blank");
-		this.role = role;
+		this.role=role;
 	}
 
 
 	public Collection<Job> getJobs() {
 		return jobs;
+	}
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		Collection<GrantedAuthority> authorities = new ArrayList<>();
+		
+		
+			authorities.add(new SimpleGrantedAuthority(this.getRole()));
+		
+		return authorities;
+	}
+	@Override
+	public boolean isAccountNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+	@Override
+	public boolean isAccountNonLocked() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+	@Override
+	public boolean isCredentialsNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+	@Override
+	public boolean isEnabled() {
+		// TODO Auto-generated method stub
+		return true;
 	}
 	
 

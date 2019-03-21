@@ -64,6 +64,8 @@ public class UserService implements UserDetailsService {
 		if (id != null ) {
 			repo.delete(id);
 		}
+		
+	
 	}
 	
 	//TODO
@@ -71,6 +73,7 @@ public class UserService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		User user = repo.findUserByUsername(username);
 		if(user==null) {
+			
 			throw new UsernameNotFoundException("invalid username or password");
 		}
 		GrantedAuthority authority = new SimpleGrantedAuthority(user.getRole());
