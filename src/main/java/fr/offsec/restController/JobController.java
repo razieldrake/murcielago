@@ -123,10 +123,10 @@ public class JobController {
 			HostsDTO results = rest.getForObject("http://192.168.0.25:8000/scan"+PARAMURL, HostsDTO.class);
 			for (HostDTO result : results.getHost() ) {
 				
-				Host host = new Host(new Random().nextLong(), result.getIpHost(), result.getOperationSystem(), true);
+				Host host = new Host(new Random().nextLong(), result.getIp(), result.getOperationSystem(), true);
 				job.getHost().add(host);
 				host.setJob(job);
-				System.out.println(result.getIpHost()+" has been found with "+result.getOperationSystem());
+				System.out.println(result.getIp()+" has been found with "+result.getOperationSystem());
 				if (result.getPorts()!=null) {
 					System.out.println("The host has ports informations");
 					for (PortDTO portdto : result.getPorts() ) {					
@@ -134,15 +134,15 @@ public class JobController {
 						host.getPorts().add(po);
 						po.setHost(host);
 						System.out.println(portdto.getIdPort() + "on protocol : "+ portdto.getProtocol());
-						if (portdto.getServiceRunningOnPort()!=null) {
+						if (portdto.getServices()!=null) {
 							System.out.println("there s services running on port");
-							for (ServiceDTO sdto : portdto.getServiceRunningOnPort()) {
+							for (ServiceDTO sdto : portdto.getServices()) {
 								Service serv = new Service(new Random().nextLong(), sdto.getNameService(), sdto.getVersionService(), "testFieldOsInService");
-								po.getServiceRunningOnPort().add(serv);
+								po.getServices().add(serv);
 								serv.setPort(po);
-								if(sdto.getCvesService()!=null) {
+								if(sdto.getCve()!=null) {
 									System.out.println("there's cve working on service");
-									for (CVEDTO cvedto : sdto.getCvesService()) {
+									for (CVEDTO cvedto : sdto.getCve()) {
 										CVE cve = new CVE(cvedto.getIdCVE(),
 														  cvedto.getBaseScore(),
 														  cvedto.getImpactScore(),
@@ -150,7 +150,7 @@ public class JobController {
 														  cvedto.getAttackVector(),
 														  cvedto.getDescription(),
 														  serv);
-										serv.getCVEForService().add(cve);
+										serv.getCVE().add(cve);
 										cve.setService(serv);
 									}
 								}

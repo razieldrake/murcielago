@@ -24,7 +24,7 @@ public class HostDTO {
 	private PortDTO[] ports;
 	
 
-	public String getIpHost() {
+	public String getIp() {
 		return ip;
 	}
 

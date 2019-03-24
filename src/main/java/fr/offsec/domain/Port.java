@@ -47,7 +47,7 @@ public class Port {
 	
 	
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id", nullable = false)
+    //@JoinColumn(name = "id", nullable = false)
 	@JsonIgnore
 	private Host host;
 	
@@ -72,7 +72,7 @@ public class Port {
 	public Host getHost() {
 		return this.host;
 	}
-	public Collection<Service> getServiceRunningOnPort(){
+	public Collection<Service> getServices(){
 		return this.services;
 	}
 	

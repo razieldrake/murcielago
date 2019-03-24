@@ -41,7 +41,7 @@ public class PortService {
  	public Port save(Port port) {
 		
 		if (port==null) {return null;}
-		for (fr.offsec.domain.Service service : port.getServiceRunningOnPort()) {
+		for (fr.offsec.domain.Service service : port.getServices()) {
 			port.setPortForService(service);
 		}
 		return repo.save(port);

@@ -53,8 +53,8 @@ public class HostController {
 	}
 	
 	@GetMapping(params= {"ipaddr"})
-	public ResponseEntity<Host> getOneByID(@RequestParam(name = "ipaddr")Long ipaddr){
-		return ResponseEntity.ok(service.findAllByIP(ipaddr));
+	public ResponseEntity<Host> getOneByID(@RequestParam(name = "ipaddr")String ipaddr){
+		return ResponseEntity.ok(service.findAllByIP(Long.parseLong(ipaddr)));
 	}
 	
 	@GetMapping("/{ipaddr}/ports")
@@ -68,7 +68,7 @@ public class HostController {
 																 @PathVariable("idport")int idPort){
 		
 		Port port = portService.findPortById(idPort);
-		return ResponseEntity.ok(port.getServiceRunningOnPort());
+		return ResponseEntity.ok(port.getServices());
 		
 	}
 	
@@ -77,7 +77,7 @@ public class HostController {
 															@PathVariable("idport")int idPort,
 															@PathVariable("idService")Long idService){
 		Service service = serviceService.getAllByID(idService);
-		return ResponseEntity.ok(service.getCVEForService());
+		return ResponseEntity.ok(service.getCVE());
 		
 	}
 

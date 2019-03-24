@@ -36,7 +36,7 @@ public class ServiceService {
 	public fr.offsec.domain.Service save(fr.offsec.domain.Service service) {
 		
 		if (service==null) {return null;}
-		for (CVE cve : service.getCVEForService()) {
+		for (CVE cve : service.getCVE()) {
 			cve.setService(service);
 		}
 		return repo.save(service);

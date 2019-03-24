@@ -25,7 +25,7 @@ public class ServiceDTO {
 	private String osService;
 	
 	@JsonProperty("CVE")
-	private CVEDTO[] cvesService;
+	private CVEDTO[] cve;
 
 	public Long getIdService() {
 		return idService;
@@ -43,8 +43,8 @@ public class ServiceDTO {
 		return portService;
 	}
 
-	public CVEDTO[] getCvesService() {
-		return cvesService;
+	public CVEDTO[] getCve() {
+		return cve;
 	}
 
 	public void setIdService(Long idServiceDTO) {
@@ -64,7 +64,7 @@ public class ServiceDTO {
 	}
 
 	public void setCvesService(CVEDTO[] cvesServiceDTO) {
-		this.cvesService = cvesServiceDTO;
+		this.cve = cvesServiceDTO;
 	}
 
 	public String getOsService() {

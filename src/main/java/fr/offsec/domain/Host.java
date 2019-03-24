@@ -42,7 +42,7 @@ public class Host {
 	@JsonProperty
 	private boolean isNew; // Triggered is the IP has never been discovered by an anterior scan
 
-	@JsonIgnore
+	//@JsonIgnore
 	@OneToMany(mappedBy= "host", cascade=CascadeType.ALL)
 	private Collection<Port> ports = new ArrayList<Port>();
 	

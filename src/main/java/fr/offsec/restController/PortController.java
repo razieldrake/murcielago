@@ -27,7 +27,7 @@ public class PortController {
 	public ResponseEntity<Iterable<Port>> getAll(){
 		
 		Iterable <Port> port = 	service.getAll();
-		port.forEach(h->h.getServiceRunningOnPort().clear());
+		port.forEach(h->h.getServices().clear());
 		return ResponseEntity.ok(service.getAll());
 	}
 
@@ -43,7 +43,7 @@ public class PortController {
 	public ResponseEntity<Collection<Service>> getCvesForService(@PathVariable("idPort")int idPort){
 		Port bla = service.findPortById(idPort);
 		Collection<Service> services = new ArrayList<Service>();
-		for (Service serv : bla.getServiceRunningOnPort()) {
+		for (Service serv : bla.getServices()) {
 			services.add(serv);
 		}
 		return ResponseEntity.ok(services);

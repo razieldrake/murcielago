@@ -89,7 +89,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 					.addFilter(customFilter)
 					.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 					.and()
-					.authorizeRequests().antMatchers(HttpMethod.POST,"/login").permitAll()
+					.authorizeRequests().antMatchers(HttpMethod.POST,"login").permitAll()
 					//.antMatchers("/jobs**").authenticated()
 					.and()
 					
@@ -104,23 +104,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
-       /* UrlBasedCorsConfigurationSource source = new
+      /* UrlBasedCorsConfigurationSource source = new
                 UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
         return source;*/
     	
-    	 UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+    	UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
     	    CorsConfiguration config = new CorsConfiguration();
     	    config.setAllowCredentials(true);
     	    config.addAllowedOrigin("*");
     	    config.addExposedHeader("Authorization, x-xsrf-token, Access-Control-Allow-Headers, Origin, Accept, X-Requested-With, " +
     	            "Content-Type, Access-Control-Request-Method, token");
-    	    config.addAllowedHeader("*");
-    	    config.addAllowedMethod("OPTIONS");
+    	    config.addAllowedHeader("*");config.checkOrigin("localhost:4200");
+    	    config.addAllowedMethod("*");
+    	    
+    	    /*config.addAllowedMethod("OPTIONS");
     	    config.addAllowedMethod("GET");
     	    config.addAllowedMethod("POST");
     	    config.addAllowedMethod("PUT");
-    	    config.addAllowedMethod("DELETE");
+    	    config.addAllowedMethod("DELETE");*/
     	    source.registerCorsConfiguration("/**", config);
     	    return source;
     }

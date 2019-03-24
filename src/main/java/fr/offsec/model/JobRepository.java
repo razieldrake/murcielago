@@ -15,5 +15,5 @@ public interface JobRepository extends CrudRepository<Job, Integer> {
 	Job findAllByIdJob(Long idJob);
 	Iterable<Job> findAllByNameJob(String name);
 	Iterable<Job> findAllJobByStatusJob(String status);
-	
+	//Job findAllByIdJobContainaing(Long idJob);
 }

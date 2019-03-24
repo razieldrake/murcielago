@@ -103,7 +103,7 @@ public class Service {
 	public Port getPort() {
 		return this.port;
 	}
-	public Collection<CVE> getCVEForService(){
+	public Collection<CVE> getCVE(){
 		return this.cves;
 	}
 

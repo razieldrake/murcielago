@@ -18,6 +18,18 @@ public class JobService {
 		return repo.findAll();
 	}
 	
+	public Job findOneByIdLike(Long idJob) {
+		
+		
+			if (idJob != null) {
+			return  repo.findAllByIdJob(idJob);
+			
+			}else {
+				return null;
+			}
+			
+		
+	}
 	public Job findByID(Long idJob){
 		if(idJob == 0) {
 			return null;

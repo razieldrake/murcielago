@@ -65,7 +65,8 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                     SecurityContextHolder.getContext().setAuthentication(authentication);
                     System.out.println("user connected from:"+authentication.getName());
                     System.out.println("Contxt :"+SecurityContextHolder.getContext().getAuthentication().getName().toString());
-                    ((HttpServletResponse) servletResponse).setHeader("Authorization","Bearer"+jwt);
+                   // ((HttpServletResponse) servletResponse).setHeader("Authorization","Bearer"+jwt);
+                    filterChain.doFilter(servletRequest, servletResponse);
                 }
             }
                 else if (httpServletRequest.getParameterMap() != null){
@@ -91,7 +92,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             System.out.println("Exception " + eje.getMessage()+" "+ eje);
         }
         
-        filterChain.doFilter(servletRequest, servletResponse);
+        
     }
 
     private void resetAuthenticationAfterRequest() {

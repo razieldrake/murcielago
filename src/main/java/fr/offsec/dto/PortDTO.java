@@ -21,8 +21,8 @@ public class PortDTO {
 	
 	private Host host;
 	
-	@JsonProperty("service")
-	private ServiceDTO[] servicesPort;
+	@JsonProperty("services")
+	private ServiceDTO[] services;
 
 	public int getIdPort() {
 		return idPort;
@@ -40,8 +40,8 @@ public class PortDTO {
 		return host;
 	}
 
-	public ServiceDTO[] getServiceRunningOnPort() {
-		return servicesPort;
+	public ServiceDTO[] getServices() {
+		return services;
 	}
 
 	public void setIdPortDTO(int idPort) {
@@ -61,7 +61,7 @@ public class PortDTO {
 	}
 
 	public void setServicesPort(ServiceDTO[] servicesPort) {
-		this.servicesPort = servicesPort;
+		this.services = servicesPort;
 	}
 	
 	

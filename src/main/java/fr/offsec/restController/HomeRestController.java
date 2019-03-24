@@ -72,12 +72,16 @@ public class HomeRestController {
 		return ResponseEntity.ok(user.getJobs());
 	}
 	
-	@GetMapping("/generatePDF/{idJob}")
-	public ResponseEntity<Job> getPDF(@PathVariable("idJob")Long idJob, Principal principal){
+	@PostMapping("/generatePDF")
+	public ResponseEntity<Job> getPDF(@RequestParam (name = "idJob")Long idJob, Principal principal){
 		System.out.println(idJob);
 		if (idJob == null) {System.out.println("not an identifiers");return new ResponseEntity<Job>(HttpStatus.BAD_REQUEST);}
-		Job job = jobService.findByID(idJob);
+		
+		//Job job = jobService.findByID(idJob);
+		Job job = jobService.findOneByIdLike(idJob);
+		
 		if (job ==null) {System.out.println("didn't find the job");return new ResponseEntity<Job>(HttpStatus.BAD_REQUEST);}
+		
 				
 	
 		return ResponseEntity.ok(job);
